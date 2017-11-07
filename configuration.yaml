@@ -1,0 +1,159 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 53.351669
+  longitude: -1.491215
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: UTC
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+  ssl_certificate: /etc/letsencrypt/live/carljackson.duckdns.org/fullchain.pem
+  ssl_key: /etc/letsencrypt/live/carljackson.duckdns.org/privkey.pem
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# nmap device tracking
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.86.1/24
+    track_new_devices: no
+    consider_home: 0:35
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+
+
+#notify:
+#  - name: Home assistant
+#    platform: html5
+    
+# Weather prediction
+#sensor:
+#  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+#ffmpeg
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+# nest
+nest:
+  client_id: !secret nest
+  client_secret: !secret nest_secret
+
+#notify:
+#  - name: Home_assistant
+#    platform: html5
+#    gcm_api_key: 'gcm-sender-key'
+#    gcm_sender_id: 'gcm-sender-id'
+#cameras
+#camera:
+#  #Sheffield parkway generic
+#  - platform: generic
+#    still_image_url: http://sccplugins.sheffield.gov.uk/utc/Images/Cam13.jpg
+
+light:
+  - platform: hue
+    host: 192.168.86.59
+    allow_hue_groups: false
+
+# sony bravia TV
+media_player:
+  - platform: braviatv
+    host: 192.168.86.38
+#yamaha multicast
+  - platform: yamaha_musiccast
+    name: "Living Room Soundbar"
+    host: 192.168.86.58
+    port: 5005
+
+
+#google wifi
+sensor:
+  - platform: google_wifi
+#dark sky weather  
+  - platform: darksky
+    api_key: !secret dark_sky
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature
+      - minutely_summary
+# zone minder sensors
+  - platform: zoneminder
+#location of Carl
+#  - platform: rest
+#    resource: http://ml.internalpositioning.com/location?group=12dovedalecarlbec&user=carlj
+#    value_template: '{{ value_json.users.carlj[0].location }}'
+#    method: GET
+#    name: Carl house location
+#    scan_interval: 60
+
+
+zoneminder:
+  host: carljackson.duckdns.org:8002
+  path_zms: /zm/cgi-bin/nph-zms
+  username: admin
+  password: !secret zone_minder
+
+camera:
+  - platform: zoneminder
+
+#IFTTT API
+ifttt:
+  key: !secret ifttt
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://192.168.86.52:3218
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+

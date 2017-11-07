@@ -1,0 +1,37 @@
+sensor.living_room_thermostat_hvac_state:
+  hidden: true
+binary_sensor.living_room_thermostat_fan:
+  hidden: true
+binary_sensor.living_room_thermostat_has_leaf:
+  hidden: true
+binary_sensor.living_room_thermostat_is_locked:
+  hidden: true
+binary_sensor.living_room_thermostat_is_using_emergency_heat:
+  hidden: true
+sensor.living_room_thermostat_temperature:
+  hidden: true
+sensor.living_room_thermostat_operation_mode:
+  hidden: true
+sensor.living_room_thermostat_target:
+  hidden: true
+sensor.dark_sky_icon:
+  hidden: true
+media_player.sony_bravia_tv:
+  friendly_name: Living room TV
+media_player.living_room:
+  friendly_name: Living Room (Chromecast)
+media_player.soundbar:
+  friendly_name: Soundbar (Chromecast)
+media_player.living_room_soundbar:
+  friendly_name: Soundbar
+script.bedtime:
+  icon: mdi:sleep
+scene.watch_tv:
+  friendly_name: Watching  TV
+  icon: mdi:television-classic
+group.people:
+  icon: mdi:account-multiple
+group.all_automations:
+  hidden: false
+group.all_scripts:
+  hidden: false

@@ -1,0 +1,136 @@
+#soundar when music playing
+  - id: soundbar_automation
+    alias: 'Soundbar on when chromecast playing'
+    trigger:
+      - platform: state
+        entity_id: media_player.soundbar
+        to: 'playing'
+      - platform: state
+        entity_id: media_player.downstairs
+        to: 'playing'
+      - platform: state
+        entity_id: media_player.all_house
+        to: 'playing'
+    condition:
+      condition: or
+      conditions:
+        - condition: template
+          value_template: '{{ states.media_player.living_room_soundbar  != "on" }}'
+        - condition: template
+          value_template: '{{ states.media_player.living_room_soundbar.attributes.source != "analog"}}'
+    action:
+      - service: media_player.turn_on
+        entity_id: media_player.living_room_soundbar
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.living_room_soundbar
+          source: analog
+          
+#Lights to turn on when dark
+  - id: lights_when_dark_automation
+    alias: 'lights on when dark'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-00:25:00"
+    condition:
+      condition: state
+      entity_id: group.people
+      state: home
+    action:
+      service: light.turn_on
+      entity_id: light.living_room_table_lamp
+      data:
+        #900 seconds = 15 minutes
+        transition: 900
+        brightness: 200
+        kelvin: 2700 
+        
+#turn the lights on when we arrive, if they aren;t already
+  - id: lights_on_arrival
+    alias: 'Lights on when we arrive home'
+    trigger:
+      platform: state
+      entity_id: group.people
+      to: 'home'
+      from: 'not_home'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.living_room_table_lamp
+          state: 'off'
+        - condition: sun
+          after: sunset
+          after_offset: "-0:25:00"
+    action:
+      - service: light.turn_on
+        entity_id: light.living_room_table_lamp
+        data:
+          #900 seconds = 15 minutes
+          transition: 60
+          brightness: 200
+          kelvin: 2700
+      - service: light.turn_on
+        entity_id: light.porch
+        data:
+          brightness_pct: 3
+          kelvin: 2700
+        
+#turn the lights off when we leave
+  - id: lights_on_depart
+    alias: 'Lights off when everyone leaves'
+    trigger:
+      platform: state
+      entity_id: group.people
+      to: 'not_home'
+      from: 'home'
+      for:
+        minutes: 30
+    action:
+      service: light.turn_off
+      entity_id: group.all_lights
+
+#porch light off after 2 minutes
+  - id: porch_off_after_2_minutes
+    alias: 'Turn porch light off after 2 minutes'
+    trigger:
+      platform: state
+      entity_id: light.porch
+      to: 'on'
+      for:
+        minutes: 2
+    condition:
+      condition: state
+      entity_id: group.people
+      state: home
+    action:
+      service: light.turn_off
+      entity_id: light.porch
+
+#Nest heating on if home during the week.
+  - id: nest_heating_off_work
+    alias: 'Nest heating on when someone is off work'
+    trigger:
+      platform: time
+      hours: 9
+      minutes: 30
+      seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: state
+          entity_id: group.people
+          state: home
+    action:
+      service: climate.set_temperature
+      data:
+        entity_id: climate.living_room
+        temperature: 19#

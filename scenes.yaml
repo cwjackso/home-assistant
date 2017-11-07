@@ -1,0 +1,14 @@
+  - name: Watch Tv
+    entities:
+      light.living_room_table_lamp:
+        state: on
+        brightness: 100
+        rgb_color: [85,164,230]
+      light.living_room_ceiling_1:
+        state: on
+        brightness: 10
+        kelvin: 5000
+      light.living_room_ceiling_2:
+        state: on
+        brightness: 5
+        kelvin: 5000

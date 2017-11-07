@@ -1,0 +1,151 @@
+#groups
+people:
+  name: People
+  entities:
+    - device_tracker.24df6af37d55 #carl
+    - sensor.carl_house_location
+    - device_tracker.galaxys8lan # becs
+    - device_tracker.androidfadcc20bfc24cd4blan #ollie
+
+soundbar:
+  name: Living room soundbar
+  entities:
+    - media_player.soundbar
+    - media_player.living_room_soundbar
+
+living_room_tv:
+  name: Living room TV
+  entities:
+    - media_player.living_room
+    - media_player.sony_bravia_tv
+
+weather:
+  - sun.sun
+  - sensor.dark_sky_summary
+  - sensor.dark_sky_temperature
+  - sensor.dark_sky_minutely_summary
+nest:
+  name: Nest
+  entities:
+    - binary_sensor.living_room_thermostat_online
+    - climate.living_room
+    - sensor.living_room_thermostat_humidity
+wifi:
+  name: Google WiFi
+  entities:
+    - sensor.google_wifi_status
+    - sensor.google_wifi_local_ip
+    - sensor.google_wifi_uptime
+    - sensor.google_wifi_last_restart
+    - sensor.google_wifi_new_version
+    - sensor.google_wifi_current_version
+
+living_room_lights:
+  name: Living room lights
+  entities:
+    - light.living_room_table_lamp
+    - light.living_room_ceiling_1
+    - light.living_room_ceiling_2
+    
+hallway_lights:
+  name: Hallway light
+  entities:
+    - light.porch
+
+bedroom_lights:
+  name: Bedroom Lights
+  entities:
+    - light.bedside_right
+
+triggers:
+  name: Triggers
+  entities:
+    - script.bedtime
+    
+scenes:
+  name: Scenes
+  entities:
+    - scene.watch_tv
+#views
+
+default_view:
+    view: yes
+    icon: mdi:home 
+    entities:
+      - group.triggers
+      - group.scenes
+      - group.people
+      - group.nest
+      - group.weather
+
+all_lighting:
+  name: Lighting
+  icon: mdi:lightbulb-on
+  view: yes
+  entities:
+    - group.living_room_lights
+    - group.hallway_lights
+    - group.bedroom_lights
+
+all_media:
+  name: Media
+  icon: mdi:play-circle
+  view: yes
+  entities:
+    - group.living_room_tv
+    - group.soundbar
+    - media_player.bedroom
+    - media_player.kitchen
+    - media_player.kitchen_home
+
+all_cameras:
+  name: Cameras
+  icon: mdi:cctv
+  view: yes
+  entities:
+    - camera.garden
+    - sensor.garden_events
+
+living_room:
+  name: Living Room
+  icon: mdi:sofa
+  view: yes
+  entities:
+    - group.living_room_lights
+    - group.nest
+    - group.living_room_tv
+    - group.soundbar
+hallway:
+  name: Hallway
+  icon: mdi:stairs
+  view: yes
+  entities:
+    - group.hallway_lights
+    - group.nest
+
+bedroom:
+  name: Bedroom
+  icon: mdi:hotel
+  view: yes
+  entities:
+    - media_player.bedroom
+    - group.bedroom_lights
+    - group.nest
+    
+kitchen:
+  name: Kitchen
+  icon: mdi:pot
+  view: yes
+  entities:
+    - media_player.kitchen
+    - group.nest
+
+settings:
+  name: Settings group
+  icon: mdi:auto-fix
+  view: yes
+  entities:
+    - group.all_automations
+    - group.all_scripts
+
+
