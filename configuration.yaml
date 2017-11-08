@@ -1,3 +1,4 @@
+
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
@@ -27,8 +28,8 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
-  ssl_certificate: /etc/letsencrypt/live/carljackson.duckdns.org/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/carljackson.duckdns.org/privkey.pem
+  # ssl_certificate: /etc/letsencrypt/live/12dovedale.digital/fullchain.pem
+  # ssl_key: /etc/letsencrypt/live/12dovedale.digital/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -62,10 +63,12 @@ sun:
 
 
 
-#notify:
-#  - name: Home assistant
-#    platform: html5
-    
+notify:
+  - name: HOME_ASSISTANT
+    platform: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+
 # Weather prediction
 #sensor:
 #  - platform: yr
@@ -133,7 +136,8 @@ sensor:
 
 
 zoneminder:
-  host: carljackson.duckdns.org:8002
+  host: 12dovedale.digital
+  ssl: true
   path_zms: /zm/cgi-bin/nph-zms
   username: admin
   password: !secret zone_minder
