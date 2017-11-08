@@ -3,8 +3,8 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 53.351669
-  longitude: -1.491215
+  latitude: !secret latitude
+  longitude: -!secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 0
   # metric for Metric, imperial for Imperial
@@ -28,8 +28,8 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
-  # ssl_certificate: /etc/letsencrypt/live/12dovedale.digital/fullchain.pem
-  # ssl_key: /etc/letsencrypt/live/12dovedale.digital/privkey.pem
+  # ssl_certificate: /etc/letsencrypt/live/url/fullchain.pem
+  # ssl_key: /etc/letsencrypt/live/url/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -128,7 +128,7 @@ sensor:
   - platform: zoneminder
 #location of Carl
 #  - platform: rest
-#    resource: http://ml.internalpositioning.com/location?group=12dovedalecarlbec&user=carlj
+#    resource: http://ml.internalpositioning.com/location?group=group&user=user
 #    value_template: '{{ value_json.users.carlj[0].location }}'
 #    method: GET
 #    name: Carl house location
@@ -153,7 +153,7 @@ panel_iframe:
   configurator:
     title: Configurator
     icon: mdi:wrench
-    url: http://192.168.86.52:3218
+    url: !secret home_assistant_url
 
 
 group: !include groups.yaml
