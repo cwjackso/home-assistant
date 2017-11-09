@@ -20,10 +20,10 @@
           value_template: '{{ states.media_player.living_room_soundbar.attributes.source != "analog"}}'
     action:
       - service: media_player.turn_on
-        entity_id: media_player.living_room_soundbar
+        entity_id: media_player.living_room_soundbar_main
       - service: media_player.select_source
         data:
-          entity_id: media_player.living_room_soundbar
+          entity_id: media_player.living_room_soundbar_main
           source: analog
           
 #Lights to turn on when dark

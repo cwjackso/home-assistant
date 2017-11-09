@@ -1,0 +1,8 @@
+# sony bravia TV
+  - platform: braviatv
+    host: 192.168.86.38
+#yamaha multicast
+  - platform: yamaha_musiccast
+    name: "Living Room Soundbar"
+    host: 192.168.86.58
+    port: 5005

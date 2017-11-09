@@ -1,0 +1,12 @@
+#google wifi
+  - platform: google_wifi
+#dark sky weather  
+  - platform: darksky
+    api_key: !secret dark_sky
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature
+      - minutely_summary
+# zone minder sensors
+  - platform: zoneminder
