@@ -26,18 +26,7 @@ config:
 http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret http_password
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
-  # ssl_certificate: /etc/letsencrypt/live/url/fullchain.pem
-  # ssl_key: /etc/letsencrypt/live/url/privkey.pem
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
 
 # nmap device tracking
 device_tracker:
@@ -63,7 +52,7 @@ logbook:
 sun:
 
 notify:
-  - name: HOME_ASSISTANT
+  - name: home_assistant
     platform: html5
     gcm_api_key: !secret gcm_api_key
     gcm_sender_id: !secret gcm_sender_id

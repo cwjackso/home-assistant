@@ -134,3 +134,66 @@
       data:
         entity_id: climate.living_room
         temperature: 19#
+
+#coming come notification
+  - id: coming_home
+    alias: 'Coming home in the week'
+    trigger:
+      platform: time
+      hours: 5
+      minutes: 00
+      seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: state
+          entity_id: group.people
+          state: away
+    action:
+      service: notify.home_assistant
+      data:
+        message: "Just checking you'll be home on time, to pre heat the house?"
+        data:
+          actions:
+            - action: button1
+              title: "Yep, pre heat the house"
+              #action: button2
+              #title: "Wait an hour I'm going to be late"
+
+  - id: coming_home_click
+    alias: Coming Home - on time
+    trigger:
+      platform: event
+      event_type: html5_notification.clicked
+      event_data:
+       action: button1
+    action:
+      - service: climate.set_away_mode
+        data:
+          entity_id: climate.living_room
+          away_mode: 'off'
+      - service: climate.set_away_mode
+        data:
+          entity_id: climate.living_room
+          operation_mode: "heat"
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.living_room
+          temperature: 19.5
+
+#  - id: coming_home_late_click
+#    alias: Coming Home - going to be late
+#    trigger:
+#      platform: event
+#      event_type: html5_notification.clicked
+#      event_data:
+#       action: button2
+#    action:
+#      service: climate.living_room
