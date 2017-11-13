@@ -20,6 +20,9 @@ homeassistant:
 # Enables the frontend
 frontend:
 
+#enable MQTT
+mqtt:
+
 # Enables configuration UI
 config:
 
@@ -33,7 +36,6 @@ device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.86.140-143
     track_new_devices: yes
-    interval_seconds: 10
     consider_home: 0:35
 
 # Discover some devices automatically

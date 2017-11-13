@@ -140,8 +140,8 @@
     alias: 'Coming home in the week'
     trigger:
       platform: time
-      hours: 5
-      minutes: 00
+      hours: 17
+      minutes: 15
       seconds: 0
     condition:
       condition: and
@@ -197,3 +197,14 @@
 #       action: button2
 #    action:
 #      service: climate.living_room
+
+  - id: doorbell_pushed
+    alias: Doorbell Pushed
+    trigger:
+      platform: mqtt
+      topic: home/nodemcu/doorbell
+      payload: 'on'
+    action:
+      service: notify.home_assistant
+      data:
+        message: "Someone is at the front door"
