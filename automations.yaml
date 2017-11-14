@@ -206,9 +206,9 @@
       topic: home/nodemcu/doorbell
       payload: 'on'
     action:
-      #- service: notify.home_assistant
-      #  data:
-      #    message: "Someone is at the front door"
+      - service: notify.home_assistant
+        data:
+          message: "Someone is at the front door"
       - service: media_player.play_media
         data:
           entity_id: media_player.kitchen_home
