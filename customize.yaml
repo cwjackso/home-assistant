@@ -26,6 +26,8 @@ media_player.living_room_soundbar_main:
   friendly_name: Soundbar
 script.bedtime:
   icon: mdi:sleep
+script.delay_heating:
+  icon: mdi:radiator
 scene.watch_tv:
   friendly_name: Watching  TV
   icon: mdi:television-classic
