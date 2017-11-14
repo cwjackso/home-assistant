@@ -61,7 +61,8 @@ triggers:
   name: Triggers
   entities:
     - script.bedtime
-    
+    - script.delay_heating
+
 scenes:
   name: Scenes
   entities:
