@@ -167,8 +167,8 @@
               action: button2
               title: "Start pre heating in an hour"
 
-  - id: coming_home_click
-    alias: Coming Home - on time
+  - id: notify_action_coming_home
+    alias: Notification action - Coming Home on time
     trigger:
       platform: event
       event_type: html5_notification.clicked
@@ -188,8 +188,8 @@
           entity_id: climate.living_room
           temperature: 19.5
 
-  - id: coming_home_late_click
-    alias: Coming Home - going to be late
+  - id: notify_action_coming_home_late
+    alias: Notification action - Going to be late
     trigger:
       platform: event
       event_type: html5_notification.clicked
