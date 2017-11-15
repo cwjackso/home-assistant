@@ -85,7 +85,7 @@ light:
     allow_hue_groups: false
 
 zoneminder:
-  host: cctv.12dovedale.digital
+  host: !sectret zone_minder_url
   ssl: true
   path_zms: /cgi-bin/nph-zms
   path: /
