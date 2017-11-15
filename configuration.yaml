@@ -85,7 +85,7 @@ light:
     allow_hue_groups: false
 
 zoneminder:
-  host: !sectret zone_minder_url
+  host: !secret zone_minder_url
   ssl: true
   path_zms: /cgi-bin/nph-zms
   path: /
@@ -119,4 +119,6 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+shell_command: !include shell_commands.yaml
 
+input_select: !include inputs/input_select.yaml

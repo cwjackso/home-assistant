@@ -67,6 +67,10 @@ scenes:
   name: Scenes
   entities:
     - scene.watch_tv
+sky:
+  name: Sky tv
+  entities:
+    - input_select.channel
 #views
 
 default_view:
@@ -116,6 +120,8 @@ living_room:
     - group.nest
     - group.living_room_tv
     - group.soundbar
+    - group.sky
+
 hallway:
   name: Hallway
   icon: mdi:stairs

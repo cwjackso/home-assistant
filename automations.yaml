@@ -159,13 +159,14 @@
     action:
       service: notify.home_assistant
       data:
-        message: "Are you home on time tonight?"
+        title: "Are you home on time?"
+        message: "Would you like to pre heat the house?"
         data:
           actions:
             - action: button1
-              title: "Pre heat the house now"
+              title: "Yes"
             - action: button2
-              title: "Start pre heating in an hour
+              title: "In one hour"
           tag: "coming-home-notification"
 
   - id: notify_action_coming_home
@@ -176,24 +177,14 @@
       event_data:
        action: button1
     action:
-      - service: climate.set_away_mode
+      - service: climate.set_operation_mode
         data:
           entity_id: climate.living_room
-          away_mode: 'off'
-      - service: climate.set_away_mode
-        data:
-          entity_id: climate.living_room
-          operation_mode: "heat"
+          operation_mode: "Heat"
       - service: climate.set_temperature
         data:
           entity_id: climate.living_room
           temperature: 19.5
-      - service: notify.home_assistant
-        data:
-          message: ""
-          data:
-            tag: "coming-home-notification"
-
 
   - id: notify_action_coming_home_late
     alias: Notification action - Going to be late
@@ -204,11 +195,6 @@
        action: button2
     action:
       - service: script.delay_heating
-      - service: notify.home_assistant
-        data:
-          message: ""
-          data:
-            tag: "coming-home-notification"
 
 # mqtt topic automation when the button is pressed.
   - id: doorbell_pushed
@@ -228,3 +214,44 @@
           entity_id: media_player.kitchen_home
           media_content_id: "https://12dovedale.digital/assets/chime.mp3"
           media_content_type: audio/mp3
+
+#sky channel selects
+  - alias: BBC One
+    trigger:
+    - platform: state
+      entity_id: input_select.channel
+      to: BBC One
+    action:
+      service: shell_command.bbcone
+  
+  - alias: BBC Two
+    trigger:
+    - platform: state
+      entity_id: input_select.channel
+      to: BBC Two
+    action:
+      service: shell_command.bbctwo
+  
+  - alias: ITV
+    trigger:
+    - platform: state
+      entity_id: input_select.channel
+      to: ITV
+    action:
+      service: shell_command.itv
+  
+  - alias: Channel 4
+    trigger:
+    - platform: state
+      entity_id: input_select.channel
+      to: Channel 4
+    action:
+      service: shell_command.channel4
+  
+  - alias: Sky 1
+    trigger:
+    - platform: state
+      entity_id: input_select.channel
+      to: Sky 1
+    action:
+      service: shell_command.sky1

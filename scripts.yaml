@@ -55,10 +55,10 @@
           minutes: 0
           seconds: 0
       - alias: Nest heatmode
-        service: climate.set_mode
+        service: climate.set_operation_mode
         data:
           entity_id: climate.living_room
-          mode: heat
+          operation_mode: "Heat"
       - alias: Nest temp up
         service: climate.set_temperature
         data:
