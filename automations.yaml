@@ -128,7 +128,7 @@
             - fri
         - condition: state
           entity_id: group.people
-          state: not_home
+          state: home
     action:
       service: climate.set_temperature
       data:
@@ -155,7 +155,7 @@
             - fri
         - condition: state
           entity_id: group.people
-          state: home
+          state: not_home
     action:
       service: notify.home_assistant
       data:
@@ -164,8 +164,9 @@
           actions:
             - action: button1
               title: "Pre heat the house now"
-              action: button2
-              title: "Start pre heating in an hour"
+            - action: button2
+              title: "Start pre heating in an hour
+          tag: "coming-home-notification"
 
   - id: notify_action_coming_home
     alias: Notification action - Coming Home on time
@@ -187,6 +188,12 @@
         data:
           entity_id: climate.living_room
           temperature: 19.5
+      - service: notify.home_assistant
+        data:
+          message: ""
+          data:
+            tag: "coming-home-notification"
+
 
   - id: notify_action_coming_home_late
     alias: Notification action - Going to be late
@@ -196,7 +203,12 @@
       event_data:
        action: button2
     action:
-      service: script.delay_heating
+      - service: script.delay_heating
+      - service: notify.home_assistant
+        data:
+          message: ""
+          data:
+            tag: "coming-home-notification"
 
 # mqtt topic automation when the button is pressed.
   - id: doorbell_pushed
@@ -209,6 +221,8 @@
       - service: notify.home_assistant
         data:
           message: "Someone is at the front door"
+          data:
+            tag: "front-door-notification"
       - service: media_player.play_media
         data:
           entity_id: media_player.kitchen_home
