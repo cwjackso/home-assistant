@@ -116,7 +116,7 @@ panel_iframe:
 media_player: !include media_players.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_merge_list automation/
 script: !include scripts.yaml
 scene: !include scenes.yaml
 shell_command: !include shell_commands.yaml
