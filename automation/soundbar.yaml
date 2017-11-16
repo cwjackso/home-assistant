@@ -1,0 +1,27 @@
+#soundar when music playing
+  - id: soundbar_automation
+    alias: 'Soundbar on when chromecast playing'
+    trigger:
+      - platform: state
+        entity_id: media_player.soundbar
+        to: 'playing'
+      - platform: state
+        entity_id: media_player.downstairs
+        to: 'playing'
+      - platform: state
+        entity_id: media_player.all_house
+        to: 'playing'
+    condition:
+      condition: or
+      conditions:
+        - condition: template
+          value_template: '{{ states.media_player.living_room_soundbar  != "on" }}'
+        - condition: template
+          value_template: '{{ states.media_player.living_room_soundbar.attributes.source != "analog"}}'
+    action:
+      - service: media_player.turn_on
+        entity_id: media_player.living_room_soundbar_main
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.living_room_soundbar_main
+          source: analog

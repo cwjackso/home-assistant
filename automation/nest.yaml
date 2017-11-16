@@ -1,0 +1,26 @@
+#Nest heating on if home during the week.
+  - id: nest_heating_off_work
+    alias: 'Nest heating on when someone is off work'
+    trigger:
+      platform: time
+      hours: 9
+      minutes: 30
+      seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+        - condition: state
+          entity_id: group.people
+          state: home
+    action:
+      service: climate.set_temperature
+      data:
+        entity_id: climate.living_room
+        temperature: 19#
