@@ -1,5 +1,5 @@
 *
-!**/*.yaml
+!*.yaml
 !scenes
 !.gitignore
 secrets.yaml
