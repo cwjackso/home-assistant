@@ -31,10 +31,10 @@
         service: climate.set_temperature
         data:
           entity_id: climate.living_room
-          temperatute: 9
+          temperature: 9
       # wait 1.5 minutes
       - delay:
-          minutes: 1
+          minutes: 3
           seconds: 30
       #living room lights off
       - alias: Living room lights off

@@ -43,7 +43,7 @@
       - service: climate.set_operation_mode
         data:
           entity_id: climate.living_room
-          operation_mode: "Heat"
+          operation_mode: Heat
       - service: climate.set_temperature
         data:
           entity_id: climate.living_room

@@ -1,0 +1,18 @@
+# mqtt topic automation when the door bell is pressed.
+  - id: doorbell_pushed
+    alias: Doorbell Pushed
+    trigger:
+      platform: mqtt
+      topic: home/nodemcu/doorbell
+      payload: 'on'
+    action:
+      - service: notify.home_assistant
+        data:
+          message: "Someone is at the front door"
+          data:
+            tag: "front-door-notification"
+      - service: media_player.play_media
+        data:
+          entity_id: group.google_home_devices
+          media_content_id: !secret doorbell_chime_url
+          media_content_type: audio/mp3
