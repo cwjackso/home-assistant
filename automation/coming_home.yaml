@@ -26,11 +26,11 @@
         message: "Would you like to pre heat the house?"
         data:
           actions:
-            - action: button1
+            - action: notify_action_coming_home_button
               title: "Yes"
-            - action: button2
+            - action: notify_action_coming_home_late_button
               title: "In one hour"
-          tag: "coming-home-notification"
+          tag: "coming_home"
 
   - id: notify_action_coming_home
     alias: Notification action - Coming Home on time
@@ -38,12 +38,12 @@
       platform: event
       event_type: html5_notification.clicked
       event_data:
-       action: button1
+       action: notify_action_coming_home_button
     action:
       - service: climate.set_operation_mode
         data:
           entity_id: climate.living_room
-          operation_mode: Heat
+          operation_mode: heat
       - service: climate.set_temperature
         data:
           entity_id: climate.living_room
@@ -55,6 +55,6 @@
       platform: event
       event_type: html5_notification.clicked
       event_data:
-       action: button2
+       action: notify_action_coming_home_late_button
     action:
       - service: script.delay_heating
