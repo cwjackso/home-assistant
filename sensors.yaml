@@ -10,3 +10,32 @@
       - minutely_summary
 # zone minder sensors
   - platform: zoneminder
+
+#uber
+  - platform: uber
+    server_token: !secret uber
+    end_latitude: 53.380487
+    end_longitude: -1.468687
+
+# busses
+  - platform: uk_transport
+    app_id: !secret transport_id
+    app_key: !secret transport_key
+    queries:
+      - mode: bus
+        origin: "370021108"
+        destination: "Sheffield"
+  - platform: template
+    sensors:
+      next_bus_route:
+        friendly_name: 'Next bus route'
+        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].route}}'
+      next_bus_direction:
+        friendly_name: 'Next bus direction'
+        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].direction}}'
+      next_bus_scheduled:
+        friendly_name: 'Next bus scheduled  / estimated'
+        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].scheduled}} / {{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].estimated}}'
+      uber_to_town:
+        friendly_name: 'Uber X'
+        value_template: "{{states.sensor.uberx_time.attributes['Price estimate']}} arrival in {{ (states.sensor.uberx_time.attributes['Pickup time estimate (in seconds)']|int / 60)|int }} minutes"

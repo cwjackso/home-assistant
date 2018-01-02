@@ -11,7 +11,7 @@ soundbar:
   name: Living room soundbar
   entities:
     - media_player.soundbar
-    - media_player.living_room_soundbar_main
+    - media_player.ysp1600_d5c2e7_main
 
 living_room_tv:
   name: Living room TV
@@ -40,6 +40,14 @@ wifi:
     - sensor.google_wifi_new_version
     - sensor.google_wifi_current_version
 
+transport_to_town:
+  name: Transport to town
+  entities:
+    - sensor.next_bus_direction
+    - sensor.next_bus_scheduled
+    - sensor.next_bus_route
+    - sensor.uber_to_town
+
 living_room_lights:
   name: Living room lights
   entities:
@@ -56,6 +64,7 @@ bedroom_lights:
   name: Bedroom Lights
   entities:
     - light.bedside_right
+    - light.bedside_left
 
 triggers:
   name: Triggers
@@ -71,6 +80,14 @@ sky:
   name: Sky tv
   entities:
     - input_select.channel
+    
+    
+google_home_devices:
+  name: Google home devices
+  entities:
+    - media_player.kitchen_home
+    - media_player.living_room_home
+ 
 #views
 
 default_view:
@@ -82,6 +99,7 @@ default_view:
       - group.people
       - group.nest
       - group.weather
+      - group.transport_to_town
 
 all_lighting:
   name: Lighting
@@ -101,7 +119,7 @@ all_media:
     - group.soundbar
     - media_player.bedroom
     - media_player.kitchen
-    - media_player.kitchen_home
+    - group.google_home_devices
 
 all_cameras:
   name: Cameras

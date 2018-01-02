@@ -48,6 +48,12 @@
         data:
           entity_id: climate.living_room
           temperature: 19.5
+      - service: notify.home_assistant
+        data:
+          title: "Pre heating the house"
+          message: "The heating is on ready for when you arrive home"
+          data:
+            tag: "coming_home"
 
   - id: notify_action_coming_home_late
     alias: Notification action - Going to be late

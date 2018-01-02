@@ -15,13 +15,13 @@
       condition: or
       conditions:
         - condition: template
-          value_template: '{{ states.media_player.living_room_soundbar  != "on" }}'
+          value_template: '{{ states.media_player.ysp1600_d5c2e7_main  != "on" }}'
         - condition: template
-          value_template: '{{ states.media_player.living_room_soundbar.attributes.source != "analog"}}'
+          value_template: '{{ states.media_player.ysp1600_d5c2e7_main.attributes.source != "analog"}}'
     action:
       - service: media_player.turn_on
-        entity_id: media_player.living_room_soundbar_main
+        entity_id: media_player.ysp1600_d5c2e7_main
       - service: media_player.select_source
         data:
-          entity_id: media_player.living_room_soundbar_main
+          entity_id: media_player.ysp1600_d5c2e7_main
           source: analog

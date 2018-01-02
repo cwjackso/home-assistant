@@ -26,7 +26,6 @@
         entity_id: light.porch
         data:
           brightness_pct: 3
-          kelvin: 2700
         
 #turn the lights off when we leave
   - id: lights_on_depart

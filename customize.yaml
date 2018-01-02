@@ -22,8 +22,8 @@ media_player.living_room:
   friendly_name: Living Room (Chromecast)
 media_player.soundbar:
   friendly_name: Soundbar (Chromecast)
-media_player.living_room_soundbar_main:
-  friendly_name: Soundbar
+media_player.ysp1600_d5c2e7_main:
+  friendly_name: Soundbar (Yamaha)
 script.bedtime:
   icon: mdi:sleep
 script.delay_heating:
@@ -37,3 +37,11 @@ group.all_automations:
   hidden: false
 group.all_scripts:
   hidden: false
+sensor.next_bus_direction:
+  icon: mdi:bus
+sensor.next_bus_scheduled:
+  icon: mdi:bus
+sensor.next_bus_route:
+  icon: mdi:bus
+sensor.uber_to_town:
+  icon: mdi:taxi

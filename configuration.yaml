@@ -14,11 +14,16 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+#whitelist the camera snapshot folder
+  whitelist_external_dirs:
+    - /home/homeassistant/snapshots
+
 # Show links to resources in log and frontend
 #introduction:
 
 # Enables the frontend
 frontend:
+  javascript_version: latest
 
 #enable MQTT
 mqtt:
