@@ -64,3 +64,11 @@
         data:
           entity_id: climate.living_room
           temperatute: 19.5
+
+  garden_event:
+    alias: Motion event in garden
+    sequence:
+      - service: logbook.log
+        data:
+          name: "Garden : "
+          message: "Has motion"

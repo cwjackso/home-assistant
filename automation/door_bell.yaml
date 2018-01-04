@@ -12,8 +12,9 @@
           media_content_id: !secret doorbell_chime_url
           media_content_type: audio/mp3
       - service: notify.home_assistant
+        data_template:
+          message: 'Front door bell rang - {{now().strftime("%H:%M on %w %b" )}}'
         data:
-          message: "Someone is at the front door"
           data:
             tag: "front-door-notification"
 
