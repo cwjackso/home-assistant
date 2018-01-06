@@ -66,6 +66,12 @@ bedroom_lights:
     - light.bedside_right
     - light.bedside_left
 
+kitchen_lights:
+  name: Kitchen lights
+  entities:
+    - light.kitchen_island_1
+    - light.kitchen_island_2
+
 triggers:
   name: Triggers
   entities:
@@ -109,6 +115,7 @@ all_lighting:
     - group.living_room_lights
     - group.hallway_lights
     - group.bedroom_lights
+    - group.kitchen_lights
 
 all_media:
   name: Media
@@ -163,6 +170,7 @@ kitchen:
   view: yes
   entities:
     - media_player.kitchen
+    - group.kitchen_lights
     - group.nest
 
 settings:

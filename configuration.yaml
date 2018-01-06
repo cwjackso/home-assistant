@@ -86,8 +86,9 @@ nest:
 
 light:
   - platform: hue
-    host: 192.168.86.59
-    allow_hue_groups: false
+    bridges:
+    - host: 192.168.86.59
+      allow_hue_groups: false
 
 zoneminder:
   host: !secret zone_minder_url

@@ -26,6 +26,11 @@
         entity_id: light.porch
         data:
           brightness_pct: 3
+      - service: light.turn_on
+        entity_id: group.kitchen_lights
+        data:
+          transition: 60
+          brightness_pct: 60
         
 #turn the lights off when we leave
   - id: lights_on_depart
@@ -70,10 +75,16 @@
       entity_id: group.people
       state: home
     action:
-      service: light.turn_on
-      entity_id: light.living_room_table_lamp
-      data:
-        #900 seconds = 15 minutes
-        transition: 900
-        brightness: 200
-        kelvin: 2700 
+      - service: light.turn_on
+        entity_id: light.living_room_table_lamp
+        data:
+          #900 seconds = 15 minutes
+          transition: 900
+          brightness: 200
+          kelvin: 2700 
+      - service: light.turn_on
+        entity_id: group.kitchen_lights
+        data:
+          #900 seconds = 15 minutes
+          transition: 900
+          brightness_pct: 60
