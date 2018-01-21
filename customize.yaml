@@ -45,3 +45,5 @@ sensor.next_bus_route:
   icon: mdi:bus
 sensor.uber_to_town:
   icon: mdi:taxi
+light.gateway_light_7811dcb38a39:
+  friendly_name: Landing night light

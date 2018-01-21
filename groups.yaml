@@ -59,6 +59,7 @@ hallway_lights:
   name: Hallway light
   entities:
     - light.porch
+    - light.gateway_light_7811dcb38a39
 
 bedroom_lights:
   name: Bedroom Lights
@@ -93,7 +94,11 @@ google_home_devices:
   entities:
     - media_player.kitchen_home
     - media_player.living_room_home
- 
+
+alarm:
+  name: House Alarm
+  entities:
+    - alarm_control_panel.house_alarm
 #views
 
 default_view:
@@ -106,6 +111,8 @@ default_view:
       - group.nest
       - group.weather
       - group.transport_to_town
+      - group.alarm
+      - group.wifi
 
 all_lighting:
   name: Lighting
@@ -134,7 +141,7 @@ all_cameras:
   view: yes
   entities:
     - camera.garden
-    - sensor.garden_events
+    #- sensor.garden_events
 
 living_room:
   name: Living Room

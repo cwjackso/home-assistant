@@ -8,3 +8,5 @@ bbctwo: sky-remote-cli 192.168.86.37 1 0 2
 itv: sky-remote-cli 192.168.86.37 1 0 3
 channel4: sky-remote-cli 192.168.86.37 1 0 4
 sky1: sky-remote-cli 192.168.86.37 1 0 6
+
+generate_gif: 'convert -delay 100 -loop 0 /var/www/snapshots/*.jpg /var/www/snapshots/garden.gif'

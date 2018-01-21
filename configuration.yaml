@@ -16,10 +16,23 @@ homeassistant:
 
 #whitelist the camera snapshot folder
   whitelist_external_dirs:
-    - /home/homeassistant/snapshots
+    - /var/www/snapshots
 
 # Show links to resources in log and frontend
 #introduction:
+
+alarm_control_panel:
+  - platform: manual
+    name: House Alarm
+    code: !secret alarm_pin
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
 
 # Enables the frontend
 frontend:
@@ -90,16 +103,26 @@ light:
     - host: 192.168.86.59
       allow_hue_groups: false
 
-zoneminder:
-  host: !secret zone_minder_url
-  ssl: true
-  path_zms: /cgi-bin/nph-zms
-  path: /
-  username: admin
-  password: !secret zone_minder
+#xiaomi gateway
+xiaomi_aqara:
+  discovery_retry: 10
+  gateways:
+    - mac: !secret xiaomi_mac
+      key: !secret xiaomi_key
+#zoneminder:
+#  host: !secret zone_minder_url
+#  ssl: true
+#  path_zms: /cgi-bin/nph-zms
+#  path: /
+#  username: admin
+#  password: !secret zone_minder
 
 camera:
-  - platform: zoneminder
+#  - platform: zoneminder
+  - platform: mjpeg
+    name: Garden
+#    still_image_url: !secret garden_cam_mjpeg
+    mjpeg_url: !secret garden_cam_jpeg
 
 #IFTTT API
 ifttt:
@@ -123,7 +146,7 @@ media_player: !include media_players.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
-script: !include scripts.yaml
+script: !include scripts/script_base.yaml
 scene: !include scenes.yaml
 shell_command: !include shell_commands.yaml
 

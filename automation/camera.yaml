@@ -1,0 +1,31 @@
+# mqtt topic automation when camera has motion
+  - id: garden_motion
+    alias: Garden Motion
+    trigger:
+      platform: mqtt
+      topic: camera/motion/garden
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: group.people
+          state: not_home
+        - condition: sun
+          after: sunrise
+    action:
+      - service: script.generate_camera_gif
+
+          
+# mqtt topic automation when camera has an error
+  - id: garden_error
+    alias: Garden Error
+    trigger:
+      platform: mqtt
+      topic: camera/error/garden
+    action:
+      - service: notify.home_assistant_carl_phone
+        data_template:
+          message: 'There is an issue with the garden camera - {{now().strftime("%H:%M on %w %b" )}}'
+        data:
+          data:
+            tag: "garden-error-notification"

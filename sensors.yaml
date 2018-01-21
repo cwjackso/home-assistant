@@ -8,8 +8,6 @@
       - icon
       - temperature
       - minutely_summary
-# zone minder sensors
-  - platform: zoneminder
 
 #uber
   - platform: uber

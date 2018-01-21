@@ -1,0 +1,77 @@
+- alias: 'Trigger alarm while armed away'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_window_sensor_158d0001e7e302 #Front door
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001644d03 #Kitchen motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.house_alarm
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house_alarm
+    
+- alias: 'Trigger alarm while armed home'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_window_sensor_158d0001e7e302 #Front door
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001644d03 #Kitchen motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.house_alarm
+      state: armed_home
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house_alarm
+    
+
+#alarm triggered actions
+- alias: 'Alarm triggered actions'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'triggered'
+  action:
+    - service: notify.home_assistant
+      data_template:
+        message: 'The house alarm has been triggered - {{now().strftime("%H:%M on %w %b" )}}'
+      data:
+        data:
+          tag: "house-alarm-notification"
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        gw_mac: !secret xiaomi_mac
+        ringtone_id: 2
+        ringtone_vol: 10
+
+#arm the alarm after leaving
+- id: alarm_on_depart
+  alias: 'Arm the alarm after leaving'
+  trigger:
+    platform: state
+    entity_id: group.people
+    to: 'not_home'
+    from: 'home'
+    for:
+      minutes: 10
+  action:
+    service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.house_alarm
+    
+- id: disarm on arrival
+  alias: 'Disarm the alarm on arrival'
+  trigger:
+    platform: state
+    entity_id: group.people
+    to: 'home'
+    from: 'not_home'
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.house_alarm
+    

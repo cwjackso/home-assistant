@@ -11,6 +11,11 @@
           entity_id: group.google_home_devices
           media_content_id: !secret doorbell_chime_url
           media_content_type: audio/mp3
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: !secret xiaomi_mac
+          ringtone_id: 10001
+          ringtone_vol: 10
       - service: notify.home_assistant
         data_template:
           message: 'Front door bell rang - {{now().strftime("%H:%M on %w %b" )}}'
