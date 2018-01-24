@@ -21,6 +21,10 @@ homeassistant:
 # Show links to resources in log and frontend
 #introduction:
 
+weather: 
+ - platform: darksky
+   api_key: !secret dark_sky
+   
 alarm_control_panel:
   - platform: manual
     name: House Alarm
@@ -97,15 +101,13 @@ nest:
   client_secret: !secret nest_secret
 
 
-light:
-  - platform: hue
-    bridges:
-    - host: 192.168.86.59
-      allow_hue_groups: false
+hue:
+  bridges:
+  - host: 192.168.86.59
+    allow_hue_groups: false
 
 #xiaomi gateway
 xiaomi_aqara:
-  discovery_retry: 10
   gateways:
     - mac: !secret xiaomi_mac
       key: !secret xiaomi_key

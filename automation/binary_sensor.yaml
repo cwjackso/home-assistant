@@ -58,7 +58,7 @@
         brightness_pct: 75 
 
 #Dim kitch light kitchen with no motion for 5 mins
-- alias: kitchen motion
+- alias: Kitchen no motion 5 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
@@ -77,7 +77,7 @@
         brightness_pct: 25
         
 #Turn off kitchen light with no motion for 15 mins
-- alias: kitchen motion
+- alias: Kitchen no motion 15 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
@@ -95,7 +95,7 @@
         entity_id: light.kitchen
     
 #front door opened
-- alias: kitchen motion
+- alias: Front door opened
   trigger:
     platform: state
     entity_id: binary_sensor.door_window_sensor_158d0001e7e302
