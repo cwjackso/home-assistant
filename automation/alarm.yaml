@@ -35,7 +35,7 @@
 - alias: 'Alarm triggered actions'
   trigger:
     - platform: state
-      entity_id: alarm_control_panel.ha_alarm
+      entity_id: alarm_control_panel.house_alarm
       to: 'triggered'
   action:
     - service: notify.home_assistant
@@ -44,11 +44,11 @@
       data:
         data:
           tag: "house-alarm-notification"
-    - service: xiaomi_aqara.play_ringtone
-      data:
-        gw_mac: !secret xiaomi_mac
-        ringtone_id: 2
-        ringtone_vol: 10
+#    - service: xiaomi_aqara.play_ringtone
+#      data:
+#        gw_mac: !secret xiaomi_mac
+#        ringtone_id: 2
+#        ringtone_vol: 10
 
 #arm the alarm after leaving
 - id: alarm_on_depart
