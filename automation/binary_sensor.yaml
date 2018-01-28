@@ -42,20 +42,7 @@
     entity_id: binary_sensor.motion_sensor_158d0001644d03
     from: 'off'
     to: 'on'
-  condition:
-    condition: and
-    conditions:
-      - condition : or
-        conditions:
-          - condition: sun # 20 mins before sunset
-            after: sunset
-            after_offset: "-0:20:00"
-          - condition: sun # 1 hour after sunrise
-            before: sunrise
-            before_offset: "1:00:00"
-      - condition: state
-        entity_id: group.people
-        state: home
+  condition: !include ../condition_includes/lights_home_and_dark.yaml
   action:
     - service: light.turn_on
       data:
@@ -106,15 +93,7 @@
     entity_id: binary_sensor.door_window_sensor_158d0001e7e302
     from: 'off'
     to: 'on'
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: group.people
-        state: home
-      - condition: sun
-        after: sunset
-        after_offset: "-0:20:00"
+  condition: !include ../condition_includes/lights_home_and_dark.yaml
   action:
     - service: light.turn_on
       data:

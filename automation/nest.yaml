@@ -4,7 +4,7 @@
     trigger:
       platform: time
       hours: 9
-      minutes: 30
+      minutes: 10
       seconds: 0
     condition:
       condition: and
