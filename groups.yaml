@@ -111,6 +111,7 @@ motion_sensors:
   entities:
     - binary_sensor.motion_sensor_158d0001644d03
 
+
 #rooms
 living_room:
   name: Living Room
@@ -178,6 +179,9 @@ all_media:
   icon: mdi:play-circle
   view: yes
   entities:
+    - media_player.universal_media_player
+    - media_player.all_house
+    - media_player.downstairs
     - group.living_room_tv
     - group.soundbar
     - media_player.bedroom

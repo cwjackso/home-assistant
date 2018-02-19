@@ -1,0 +1,53 @@
+
+- alias: Cube event rotate
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d0001041f4c
+      action_type: rotate
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.universal_media_player
+        volume_level: >
+          {%if trigger.event.data.action_value | float > 0 %} 
+          {{  states.media_player.universal_media_player.attributes.volume_level | float + 0.05 }}
+          {% else %} 
+          {{  states.media_player.universal_media_player.attributes.volume_level | float - 0.05 }}
+          {% endif %}
+          
+          
+- alias: Cube event tap_twice
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d0001041f4c
+      action_type: tap_twice
+  action:
+    - service: media_player.media_play_pause
+      entity_id: media_player.universal_media_player
+      
+- alias: Cube event flip90
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d0001041f4c
+      action_type: flip90
+  action:
+    - service: media_player.media_next_track
+      entity_id: media_player.universal_media_player
+
+- alias: Cube event flip180
+  trigger:
+    platform: event
+    event_type: cube_action
+    event_data:
+      entity_id: binary_sensor.cube_158d0001041f4c
+      action_type: flip180
+  action:
+    - service: media_player.media_previous_track
+      entity_id: media_player.universal_media_player
+      

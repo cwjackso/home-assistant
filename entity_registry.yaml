@@ -1,0 +1,27 @@
+light.bedside_left:
+  platform: hue
+  unique_id: 00:17:88:01:02:7d:44:4c-0b
+light.living_room_ceiling_2:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:26:e4:7e-01
+light.porch:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:2f:7c:a9-01
+light.bedside_right:
+  platform: hue
+  unique_id: 00:17:88:01:02:7b:f0:9d-0b
+light.kitchen_island_1:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:c6:a1:5f-01
+light.living_room_ceiling_1:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:26:a5:27-01
+light.living_room_table_lamp:
+  platform: hue
+  unique_id: 00:17:88:01:02:7d:44:43-0b
+light.kitchen_island_2:
+  platform: hue
+  unique_id: 00:0b:57:ff:fe:c1:eb:ea-01
+climate.living_room:
+  platform: nest
+  unique_id: L80eE98MH4NmIsNKNZCYuJCAL_sl8ei1
