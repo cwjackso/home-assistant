@@ -41,14 +41,25 @@
     - service: notify.home_assistant
       data_template:
         message: 'The house alarm has been triggered - {{now().strftime("%H:%M on %w %b" )}}'
-      data:
         data:
+          actions:
+            - action: notify_action_disarm_alarm
+              title: "Disarm now"
           tag: "house-alarm-notification"
-#    - service: xiaomi_aqara.play_ringtone
-#      data:
-#        gw_mac: !secret xiaomi_mac
-#        ringtone_id: 2
-#        ringtone_vol: 10
+
+#notification action button
+- id: notify_action_disarm_alarm
+  alias: Notification action - Disarm alarm
+  trigger:
+    platform: event
+    event_type: html5_notification.clicked
+    event_data:
+     action: notify_action_disarm_alarm
+  action:
+    service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.house_alarm
+      code: !secret alarm_pin
 
 #arm the alarm after leaving
 - id: alarm_on_depart
@@ -66,7 +77,7 @@
       entity_id: alarm_control_panel.house_alarm
       code: !secret alarm_pin
     
-- id: disarm on arrival
+- id: disarm_on_arrival
   alias: 'Disarm the alarm on arrival'
   trigger:
     platform: state

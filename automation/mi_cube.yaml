@@ -11,11 +11,19 @@
       data_template:
         entity_id: media_player.universal_media_player
         volume_level: >
-          {%if trigger.event.data.action_value | float > 0 %} 
-          {{  states.media_player.universal_media_player.attributes.volume_level | float + 0.05 }}
-          {% else %} 
-          {{  states.media_player.universal_media_player.attributes.volume_level | float - 0.05 }}
-          {% endif %}
+          {% set state = states.media_player.universal_media_player.attributes.volume_level + (trigger.event.data.action_value|float)/90 -%}
+          {%-  if state > 1 -%}
+             {%- set state  = 1 -%}
+          {%-  elif state < 0 -%}
+             {%- set state  = 0 -%}
+          {%- endif %}
+          {{ state }}
+        #volume_level: >
+        #  {%if trigger.event.data.action_value | float > 0 %} 
+        #  {{  states.media_player.universal_media_player.attributes.volume_level | float + 0.05 }}
+        #  {% else %} 
+        #  {{  states.media_player.universal_media_player.attributes.volume_level | float - 0.05 }}
+        #  {% endif %}
           
           
 - alias: Cube event tap_twice
