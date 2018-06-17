@@ -1,4 +1,4 @@
-# mqtt topic automation when camera has motion
+# mqtt topic automation when garden camera has motion
   - id: garden_motion
     alias: Garden Motion
     trigger:
@@ -15,6 +15,20 @@
     action:
       - service: script.generate_camera_gif
 
+# mqtt topic automation when front door  has motion
+  - id: front_door_motion
+    alias: Front door motion
+    trigger:
+      platform: mqtt
+      topic: camera/motion/frontdoor
+    action:
+      - service: notify.home_assistant
+        data_template:
+          message: 'Motion detected at front door - {{now().strftime("%H:%M on %w %b" )}}'
+        data:
+          data:
+            tag: "frontdoor-motion-notification"
+            image: !secret frontdoor_cam_notify_proxy
           
 # mqtt topic automation when camera has an error
   - id: garden_error

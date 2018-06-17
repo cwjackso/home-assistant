@@ -68,10 +68,8 @@ device_tracker:
 
 # Discover some devices automatically
 discovery:
-
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-
+  ignore:
+    - songpal
 # Enables support for tracking state changes over time
 history:
 
@@ -81,15 +79,18 @@ logbook:
 # Track the sun
 sun:
 
-notify:
-  - name: home_assistant
-    platform: html5
-    gcm_api_key: !secret gcm_api_key
-    gcm_sender_id: !secret gcm_sender_id
 
 # Text to speech
 tts:
   - platform: google
+  - platform: microsoft
+    api_key: !secret ms_speech_api
+    language: en-gb
+    gender: Female
+    type: HazelRUS
+    rate: 15
+
+
 
 #ffmpeg
 ffmpeg:
@@ -120,14 +121,36 @@ xiaomi_aqara:
 
 camera:
 #  - platform: zoneminder
-  - platform: mjpeg
-    name: Garden
-#    still_image_url: !secret garden_cam_mjpeg
-    mjpeg_url: !secret garden_cam_jpeg
+#  - platform: mjpeg
+#    name: Garden Old
+#    mjpeg_url: !secret garden_cam_jpeg
+  - platform: xeoma
+    host: https://cctv.12dovedale.digital/
+  - platform: generic
+    name: "Front door"
+    still_image_url: !secret frontdoor_cam_notify_proxy
+
+light:
+  - platform: mqtt
+    name: "Mouse lamp"
+    state_topic: "stat/sonoff/POWER"
+    command_topic: "cmnd/sonoff/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
 
 #IFTTT API
 ifttt:
   key: !secret ifttt
+
+
+notify:
+  - name: home_assistant
+    platform: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+
 
 panel_iframe:
   configurator:
@@ -150,5 +173,6 @@ automation: !include_dir_merge_list automation/
 script: !include scripts/script_base.yaml
 scene: !include scenes.yaml
 shell_command: !include shell_commands.yaml
-
 input_select: !include inputs/input_select.yaml
+input_boolean: !include inputs/input_boolean.yaml
+google_assistant: !include google_assistant.yaml

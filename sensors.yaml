@@ -1,20 +1,34 @@
 #google wifi
   - platform: google_wifi
 
-#dark sky weather  
-#  - platform: darksky
-#    api_key: !secret dark_sky
-#    monitored_conditions:
-#      - summary
-#      - icon
-#      - temperature
-#      - minutely_summary
-
 #uber
   - platform: uber
     server_token: !secret uber
     end_latitude: 53.380487
     end_longitude: -1.468687
+
+
+#bins
+  - platform: rest
+    resource: !secret bins_api
+    name: Bin days
+    #payload: !secret bins_api_payload
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+
+#distance matrix
+  - platform: google_travel_time
+    api_key: !secret google_distance_matrix_key
+    origin: S72db
+    destination: S14rg
+    name: Time to work
+
+  - platform: google_travel_time
+    api_key: !secret google_distance_matrix_key
+    origin: S72db
+    destination: Kirk Balk academy
+    name: Time to school
+
 
 # busses
   - platform: uk_transport
@@ -38,3 +52,19 @@
       uber_to_town:
         friendly_name: 'Uber X'
         value_template: "{{states.sensor.uberx_time.attributes['Price estimate']}} arrival in {{ (states.sensor.uberx_time.attributes['Pickup time estimate (in seconds)']|int / 60)|int }} minutes"
+        
+  - platform: template
+    sensors:
+      daily_summary:
+        friendly_name: "Daily Summary"
+        value_template: >
+          Good morning! The current forecast is {{ states.weather.dark_sky.attributes.hourly_forecast_summary }}, the current temperature is {{ states.weather.dark_sky.attributes.temperature }}°C.
+          {% if now().isoweekday() == 4%}
+          It will take {{ states.sensor.time_to_school.attributes.duration_in_traffic }} to get to school and {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
+          {% elif now().isoweekday() in (1,2,3,4,5) %}
+          It will take {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
+          {% else %}
+          Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }} .
+          {% endif %}
+          It is currently {{ states.climate.living_room.attributes.current_temperature }}°C inside the house.
+          Have a great day.

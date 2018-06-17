@@ -2,8 +2,8 @@
 people:
   name: People
   entities:
-    - device_tracker.24df6af37d55 #carl
-    - sensor.carl_house_location
+    - device_tracker.huawei_mate_10fafdd04769lan #carl
+#    - sensor.carl_house_location
     - device_tracker.galaxys8lan # becs
     - device_tracker.androidfadcc20bfc24cd4blan #ollie
 
@@ -73,6 +73,7 @@ kitchen_lights:
   entities:
     - light.kitchen_island_1
     - light.kitchen_island_2
+    - light.mouse_lamp
 
 triggers:
   name: Triggers
@@ -197,6 +198,7 @@ security:
     - group.door_sensors
     - group.motion_sensors
     - camera.garden
+    - camera.front_door
     - sensor.illumination_7811dcb38a39
     
 #all_cameras:

@@ -1,0 +1,33 @@
+
+- alias: trigger daily summary
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001644d03
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: input_boolean.daily_summary_run
+    state: 'off'
+  action:
+    - service: script.turn_on
+      entity_id: script.morning_notification
+    - service: script.turn_on
+      entity_id: script.daily_summary
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.daily_summary_run
+        
+- alias: reset daily summary
+  trigger:
+    - platform: time
+      at: '05:00'
+      seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.daily_summary_run
+    state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.daily_summary_run
