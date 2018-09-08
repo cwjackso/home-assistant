@@ -19,11 +19,6 @@ living_room_tv:
     - media_player.living_room
     - media_player.sony_bravia_tv
 
-#weather:
-#  - sun.sun
-#  - sensor.dark_sky_summary
-#  - sensor.dark_sky_temperature
-#  - sensor.dark_sky_minutely_summary
 
 nest:
   name: Nest
@@ -41,13 +36,15 @@ wifi:
     - sensor.google_wifi_new_version
     - sensor.google_wifi_current_version
 
-transport_to_town:
-  name: Transport to town
+local_data:
+  name: Local
   entities:
     - sensor.next_bus_direction
     - sensor.next_bus_scheduled
     - sensor.next_bus_route
     - sensor.uber_to_town
+    - sensor.grey_bin_date
+    - sensor.blue_bin_date
 
 living_room_lights:
   name: Living room lights
@@ -160,7 +157,7 @@ default_view:
       - group.people
       - group.nest
       - group.weather
-      - group.transport_to_town
+      - group.local_data
       - group.alarm
       - group.wifi
       - weather.dark_sky

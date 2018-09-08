@@ -20,11 +20,10 @@ homeassistant:
 
 # Show links to resources in log and frontend
 #introduction:
-
-weather: 
- - platform: darksky
-   api_key: !secret dark_sky
-   
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky
+    
 alarm_control_panel:
   - platform: manual
     name: House Alarm

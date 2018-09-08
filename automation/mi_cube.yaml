@@ -4,7 +4,7 @@
     platform: event
     event_type: cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.cube_158d0001041f4c_2
       action_type: rotate
   action:
     - service: media_player.volume_set
@@ -31,7 +31,7 @@
     platform: event
     event_type: cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.cube_158d0001041f4c_2
       action_type: tap_twice
   action:
     - service: media_player.media_play_pause
@@ -42,7 +42,7 @@
     platform: event
     event_type: cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.cube_158d0001041f4c_2
       action_type: flip90
   action:
     - service: media_player.media_next_track
@@ -53,7 +53,7 @@
     platform: event
     event_type: cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.cube_158d0001041f4c_2
       action_type: flip180
   action:
     - service: media_player.media_previous_track

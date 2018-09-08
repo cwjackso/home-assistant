@@ -1,3 +1,10 @@
+  - platform: darksky
+    api_key: !secret dark_sky
+    monitored_conditions:
+       - summary
+       - daily_summary
+       - hourly_summary
+       - temperature_high
 #google wifi
   - platform: google_wifi
 
@@ -12,7 +19,10 @@
   - platform: rest
     resource: !secret bins_api
     name: Bin days
-    #payload: !secret bins_api_payload
+    value_template: 'Next grey bin collection will be on {{ value_json.domestic }} and recycling will be {{ value_json.recycling }}'
+    json_attributes:
+    - domestic
+    - recycling
     headers:
       Content-Type: "application/x-www-form-urlencoded"
 
@@ -52,19 +62,34 @@
       uber_to_town:
         friendly_name: 'Uber X'
         value_template: "{{states.sensor.uberx_time.attributes['Price estimate']}} arrival in {{ (states.sensor.uberx_time.attributes['Pickup time estimate (in seconds)']|int / 60)|int }} minutes"
-        
-  - platform: template
-    sensors:
+      grey_bin_date:
+        friendly_name: 'Next grey bin collection'
+        value_template: "{{states.sensor.bin_days.attributes['domestic']}}"
+      blue_bin_date:
+        friendly_name: 'Next recycling collection'
+        value_template: "{{states.sensor.bin_days.attributes['recycling']}}"
       daily_summary:
         friendly_name: "Daily Summary"
         value_template: >
-          Good morning! The current forecast is {{ states.weather.dark_sky.attributes.hourly_forecast_summary }}, the current temperature is {{ states.weather.dark_sky.attributes.temperature }}°C.
+          Good morning!
           {% if now().isoweekday() == 4%}
           It will take {{ states.sensor.time_to_school.attributes.duration_in_traffic }} to get to school and {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
           {% elif now().isoweekday() in (1,2,3,4,5) %}
           It will take {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
           {% else %}
-          Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }} .
+          Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }}.
           {% endif %}
-          It is currently {{ states.climate.living_room.attributes.current_temperature }}°C inside the house.
+          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.domestic, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+          The grey bin will be collected tomorrow.
+          {% endif %}
+          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.recycling, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+          The recycling will be collected tomorrow.
+          {% endif %}
+          {% if now().isoweekday() == 1%}
+          This weeks forecast is {{ states.sensor.dark_sky_daily_summary }}
+          today it will be {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
+          {% else %}
+          Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
+          {% endif %}
           Have a great day.
+          

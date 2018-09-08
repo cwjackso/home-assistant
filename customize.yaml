@@ -45,6 +45,10 @@ sensor.next_bus_route:
   icon: mdi:bus
 sensor.uber_to_town:
   icon: mdi:taxi
+sensor.grey_bin_date:
+  icon: mdi:delete
+sensor.blue_bin_date:
+  icon: mdi:recycle
 light.gateway_light_7811dcb38a39:
   friendly_name: Landing night light
 binary_sensor.door_window_sensor_158d0001e7e302:
