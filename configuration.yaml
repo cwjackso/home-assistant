@@ -23,7 +23,11 @@ homeassistant:
 weather:
   - platform: darksky
     api_key: !secret dark_sky
-    
+
+duckdns:
+  domain: !secret duck_dns_domain
+  access_token: !secret duck_dns_token
+  
 alarm_control_panel:
   - platform: manual
     name: House Alarm
@@ -49,7 +53,11 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
-   
+#variables custom componemt
+
+variable:
+  garden_last_video:
+    value: "initial"
 
 # Enables configuration UI
 config:
@@ -111,14 +119,17 @@ xiaomi_aqara:
   gateways:
     - mac: !secret xiaomi_mac
       key: !secret xiaomi_key
+      host: !secret xiaomi_host
 
 camera:
-  - platform: xeoma
-    host: https://cctv.12dovedale.digital/
+  #- platform: xeoma
+  #  host: https://cctv.12dovedale.digital/
   - platform: generic
     name: "Front door"
     still_image_url: !secret frontdoor_cam_notify_proxy
-
+  - platform: mjpeg
+    name: "Garden"
+    mjpeg_url: !secret garden_cam_stream
 light:
   - platform: mqtt
     name: "Mouse lamp"

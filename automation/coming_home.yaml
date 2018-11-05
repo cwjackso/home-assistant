@@ -47,7 +47,7 @@
       - service: climate.set_temperature
         data:
           entity_id: climate.living_room
-          temperature: 19.5
+          temperature: 21
       - service: notify.home_assistant
         data:
           title: "Pre heating the house"

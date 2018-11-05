@@ -18,13 +18,13 @@
 #bins
   - platform: rest
     resource: !secret bins_api
+    method: GET
     name: Bin days
-    value_template: 'Next grey bin collection will be on {{ value_json.domestic }} and recycling will be {{ value_json.recycling }}'
+    value_template: 'Next black bin collection will be on {{ value_json.black }}, brown bin will be {{ value_json.brown }} and blue bin will be {{ value_json.brown }}'
     json_attributes:
-    - domestic
-    - recycling
-    headers:
-      Content-Type: "application/x-www-form-urlencoded"
+    - black
+    - brown
+    - blue
 
 #distance matrix
   - platform: google_travel_time
@@ -62,12 +62,15 @@
       uber_to_town:
         friendly_name: 'Uber X'
         value_template: "{{states.sensor.uberx_time.attributes['Price estimate']}} arrival in {{ (states.sensor.uberx_time.attributes['Pickup time estimate (in seconds)']|int / 60)|int }} minutes"
-      grey_bin_date:
-        friendly_name: 'Next grey bin collection'
-        value_template: "{{states.sensor.bin_days.attributes['domestic']}}"
+      black_bin_date:
+        friendly_name: 'Next black bin collection'
+        value_template: "{{states.sensor.bin_days.attributes['black']}}"
+      brown_bin_date:
+        friendly_name: 'Next brown collection'
+        value_template: "{{states.sensor.bin_days.attributes['brown']}}"        
       blue_bin_date:
-        friendly_name: 'Next recycling collection'
-        value_template: "{{states.sensor.bin_days.attributes['recycling']}}"
+        friendly_name: 'Next blue bin collection'
+        value_template: "{{states.sensor.bin_days.attributes['blue']}}"
       daily_summary:
         friendly_name: "Daily Summary"
         value_template: >
@@ -79,12 +82,15 @@
           {% else %}
           Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }}.
           {% endif %}
-          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.domestic, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
-          The grey bin will be collected tomorrow.
+          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.black, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+          The black bin will be collected tomorrow.
           {% endif %}
-          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.recycling, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
-          The recycling will be collected tomorrow.
+          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.brown, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+          The brown bin will be collected tomorrow.
           {% endif %}
+          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.blue, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+          The blue bin will be collected tomorrow.
+          {% endif %}                 
           {% if now().isoweekday() == 1%}
           This weeks forecast is {{ states.sensor.dark_sky_daily_summary }}
           today it will be {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
@@ -92,4 +98,5 @@
           Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
           {% endif %}
           Have a great day.
-          
+
+   

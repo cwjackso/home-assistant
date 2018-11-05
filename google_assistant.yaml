@@ -1,20 +1,23 @@
 project_id: !secret ga_project_id
-client_id: !secret ga_client_id
-access_token: !secret ga_access_token
 api_key: !secret ga_api_key
 exposed_domains:
   - light
+  - camera
 entity_config:
   light.mouse_lamp:
     expose: true
     aliases:
-        - the mouse lamp
-        - mousey
+        - mouse lamp
   light.kitchen:
-    expose: true
+    expose: false
   light.living_room:
     expose: false
   light.hallway:
     expose: false
   light.bedroom:
     expose: false
+  light.group_for_wakeup:
+    expose: false
+  camera.garden:
+    expose: true
+    
