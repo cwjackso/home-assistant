@@ -31,6 +31,10 @@
         data:
           transition: 60
           brightness_pct: 60
+      - service: switch.turn_on
+        entity_id: switch.garden_lights
+      - service: switch.turn_on
+        entity_id: switch.christmas_tree
         
 #turn the lights off when we leave
   - id: lights_on_depart
@@ -43,8 +47,14 @@
       for:
         minutes: 10
     action:
-      service: light.turn_off
-      entity_id: group.all_lights
+      - service: light.turn_off
+        entity_id: group.all_lights
+      - service: switch.turn_off
+        entity_id: switch.garden_lights
+      - service: switch.turn_off
+        entity_id: switch.spare_room_light
+      - service: switch.turn_off
+        entity_id: switch.christmas_tree
 
 #porch light off after 2 minutes
   - id: porch_off_after_2_minutes
@@ -88,3 +98,7 @@
           #900 seconds = 15 minutes
           transition: 900
           brightness_pct: 60
+      - service: switch.turn_on
+        entity_id: switch.garden_lights
+      - service: switch.turn_on
+        entity_id: switch.christmas_tree

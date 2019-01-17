@@ -2,7 +2,7 @@
 people:
   name: People
   entities:
-    - device_tracker.huawei_mate_10fafdd04769lan #carl
+    - device_tracker.3c286dd0e0c2 #carl
 #    - sensor.carl_house_location
     - device_tracker.galaxys8lan # becs
     - device_tracker.androidfadcc20bfc24cd4blan #ollie

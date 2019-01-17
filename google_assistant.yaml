@@ -2,7 +2,7 @@ project_id: !secret ga_project_id
 api_key: !secret ga_api_key
 exposed_domains:
   - light
-  - camera
+  - switch
 entity_config:
   light.mouse_lamp:
     expose: true
@@ -17,6 +17,8 @@ entity_config:
   light.bedroom:
     expose: false
   light.group_for_wakeup:
+    expose: false
+  light.custom_group_for_lights:
     expose: false
   camera.garden:
     expose: true

@@ -16,7 +16,7 @@ homeassistant:
 
 #whitelist the camera snapshot folder
   whitelist_external_dirs:
-    - /var/www/snapshots
+    - /shared/files
 
 # Show links to resources in log and frontend
 #introduction:
@@ -65,12 +65,14 @@ config:
 http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret http_password
+  use_x_forwarded_for: true
+  trusted_proxies: 127.0.0.1
 
 
 # nmap device tracking
 device_tracker:
   - platform: nmap_tracker
-    hosts: 192.168.86.140-143
+    hosts: 192.168.86.140-144
     track_new_devices: yes
     consider_home: 0:35
 
@@ -121,12 +123,39 @@ xiaomi_aqara:
       key: !secret xiaomi_key
       host: !secret xiaomi_host
 
+#tensorflow
+image_processing:
+  - platform: tensorflow
+    scan_interval: 10000
+    file_out:
+      - "/shared/files/garden_camera/tensor/{{ camera_entity.split('.')[1] }}.jpg"
+    source:
+      - entity_id: camera.garden
+    model:
+      #ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_0
+      graph: /config/tensorflow/coco_frozen_inference_graph.pb
+      categories:
+        - person
+        - bird
+        - cat
+        - dog
+        - horse
+        - sheep
+        - cow
+        - elephant
+        - bear
+        - zebra
+        - giraffe
+      # open image - this is MUCH more cpu intensive! and categories will change
+      #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
+      #graph: /config/tensorflow/oi_frozen_inference_graph.pb
+
 camera:
   #- platform: xeoma
   #  host: https://cctv.12dovedale.digital/
-  - platform: generic
-    name: "Front door"
-    still_image_url: !secret frontdoor_cam_notify_proxy
+  #- platform: generic
+  #  name: "Front door"
+  #  still_image_url: !secret frontdoor_cam_notify_proxy
   - platform: mjpeg
     name: "Garden"
     mjpeg_url: !secret garden_cam_stream
@@ -158,6 +187,23 @@ panel_iframe:
     icon: mdi:wrench
     url: !secret home_assistant_url
 
+
+# switches
+switch:
+  - platform: tplink
+    name: "Garden lights"
+    host: 192.168.86.27
+  - platform: tplink
+    name: "Spare room light"
+    host: 192.168.86.34
+  - platform: tplink
+    name: "Christmas Tree"
+    host: 192.168.86.33
+#  - platform: tplink
+#    name: "Smart plug"
+#    host: 192.168.86.33
+    
+    
 #location of Carl
 #  - platform: rest
 #    resource: http://ml.internalpositioning.com/location?group=group&user=user
