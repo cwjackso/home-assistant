@@ -14,7 +14,7 @@
       platform: mqtt
       topic: camera/error/garden
     action:
-      - service: notify.home_assistant_carl_phone
+      - service: notify.home_assistant
         data_template:
           message: 'There is an issue with the garden camera - {{now().strftime("%H:%M on %w %b" )}}'
         data:

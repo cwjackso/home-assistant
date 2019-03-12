@@ -18,6 +18,8 @@ homeassistant:
   whitelist_external_dirs:
     - /shared/files
 
+system_health:
+
 # Show links to resources in log and frontend
 #introduction:
 weather:
@@ -28,6 +30,9 @@ duckdns:
   domain: !secret duck_dns_domain
   access_token: !secret duck_dns_token
   
+lovelace:
+  mode: yaml
+
 alarm_control_panel:
   - platform: manual
     name: House Alarm
@@ -55,9 +60,9 @@ mqtt:
 
 #variables custom componemt
 
-variable:
-  garden_last_video:
-    value: "initial"
+#variable:
+#  garden_last_video:
+#    value: "initial"
 
 # Enables configuration UI
 config:
@@ -99,9 +104,7 @@ tts:
     gender: Female
     type: HazelRUS
     rate: 15
-
-
-
+    
 #ffmpeg
 ffmpeg:
   ffmpeg_bin: /usr/bin/ffmpeg
@@ -132,8 +135,9 @@ image_processing:
     source:
       - entity_id: camera.garden
     model:
-      #ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_0
-      graph: /config/tensorflow/coco_frozen_inference_graph.pb
+      # coco
+      graph: /config/tensorflow/faster_rcnn_inception_v2_coco.pb
+      #graph: /config/tensorflow/faster_rcnn_resnet101_coco.pb
       categories:
         - person
         - bird
@@ -146,9 +150,9 @@ image_processing:
         - bear
         - zebra
         - giraffe
-      # open image - this is MUCH more cpu intensive! and categories will change
+      # open image
       #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
-      #graph: /config/tensorflow/oi_frozen_inference_graph.pb
+      #graph: /config/tensorflow/faster_rcnn_inception_resnet_v2_atrous_lowproposals_oid.pb
 
 camera:
   #- platform: xeoma
@@ -187,30 +191,24 @@ panel_iframe:
     icon: mdi:wrench
     url: !secret home_assistant_url
 
+person:
+  - name: Carl
+    id: carl
+    user_id: 2d487ff07eae4d54b535e7d123724a0e
+    device_trackers:
+      - device_tracker.carl_phone
+  - name: Becs
+    id: becs
+    user_id: 5105e1c86d0f46479e51a82d843dc9f5
+    device_trackers:
+      - device_tracker.bec_phone
+  - name: Ollie
+    id: ollie
+    device_trackers:
+      - device_tracker.ollie_phone
+#tplink 
+tplink:
 
-# switches
-switch:
-  - platform: tplink
-    name: "Garden lights"
-    host: 192.168.86.27
-  - platform: tplink
-    name: "Spare room light"
-    host: 192.168.86.34
-  - platform: tplink
-    name: "Christmas Tree"
-    host: 192.168.86.33
-#  - platform: tplink
-#    name: "Smart plug"
-#    host: 192.168.86.33
-    
-    
-#location of Carl
-#  - platform: rest
-#    resource: http://ml.internalpositioning.com/location?group=group&user=user
-#    value_template: '{{ value_json.users.carlj[0].location }}'
-#    method: GET
-#    name: Carl house location
-#    scan_interval: 60
 
 media_player: !include media_players.yaml
 sensor: !include sensors.yaml

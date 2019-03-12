@@ -2,7 +2,7 @@
   - id: nest_heating_off_work
     alias: 'Nest heating on when someone is off work'
     trigger:
-      platform: time
+      platform: time_pattern
       hours: 9
       minutes: 10
       seconds: 0

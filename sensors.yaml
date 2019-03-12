@@ -16,15 +16,15 @@
 
 
 #bins
-  - platform: rest
-    resource: !secret bins_api
-    method: GET
-    name: Bin days
-    value_template: 'Next black bin collection will be on {{ value_json.black }}, brown bin will be {{ value_json.brown }} and blue bin will be {{ value_json.brown }}'
-    json_attributes:
-    - black
-    - brown
-    - blue
+#  - platform: rest
+#    resource: !secret bins_api
+#    method: GET
+#    name: Bin days
+#    value_template: 'Next black bin collection will be on {{ value_json.black }}, brown bin will be {{ value_json.brown }} and blue bin will be {{ value_json.brown }}'
+#    json_attributes:
+#    - black
+#    - brown
+#    - blue
 
 #distance matrix
   - platform: google_travel_time
@@ -48,6 +48,8 @@
       - mode: bus
         origin: "370021108"
         destination: "Sheffield"
+
+#template sensors
   - platform: template
     sensors:
       next_bus_route:
@@ -82,21 +84,21 @@
           {% else %}
           Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }}.
           {% endif %}
-          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.black, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
-          The black bin will be collected tomorrow.
-          {% endif %}
-          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.brown, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
-          The brown bin will be collected tomorrow.
-          {% endif %}
-          {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.blue, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
-          The blue bin will be collected tomorrow.
-          {% endif %}                 
           {% if now().isoweekday() == 1%}
           This weeks forecast is {{ states.sensor.dark_sky_daily_summary }}
-          today it will be {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
+          today it will be {{ states.sensor.dark_sky_hourly_summary.state }}
           {% else %}
-          Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
+          Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} 
           {% endif %}
           Have a great day.
 
-   
+#with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
+# {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.black, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+# The black bin will be collected tomorrow.
+# {% endif %}
+# {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.brown, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+# The brown bin will be collected tomorrow.
+# {% endif %}
+# {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.blue, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
+# The blue bin will be collected tomorrow.
+# {% endif %}     

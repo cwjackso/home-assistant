@@ -2,7 +2,7 @@
   - id: coming_home
     alias: 'Coming home in the week'
     trigger:
-      platform: time
+      platform: time_pattern
       hours: 17
       minutes: 05
       seconds: 0

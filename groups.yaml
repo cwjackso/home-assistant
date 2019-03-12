@@ -2,10 +2,12 @@
 people:
   name: People
   entities:
-    - device_tracker.3c286dd0e0c2 #carl
-#    - sensor.carl_house_location
-    - device_tracker.galaxys8lan # becs
-    - device_tracker.androidfadcc20bfc24cd4blan #ollie
+    - person.carl
+    - person.becs
+    - person.ollie
+    #- device_tracker.3c286dd0e0c2 #carl
+    #- device_tracker.galaxys8lan # becs
+    #- device_tracker.androidfadcc20bfc24cd4blan #ollie
 
 soundbar:
   name: Living room soundbar
