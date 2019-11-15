@@ -9,4 +9,6 @@ itv: sky-remote-cli 192.168.86.37 1 0 3
 channel4: sky-remote-cli 192.168.86.37 1 0 4
 sky1: sky-remote-cli 192.168.86.37 1 0 6
 
-generate_gif: 'convert -delay 100 -loop 0 /shared/files/garden_camera/*.jpg /shared/files/garden_camera/garden.gif'
+generate_garden_gif: 'convert -delay 100 -loop 0 /shared/files/garden_camera/*.jpg /shared/files/garden_camera/garden.gif'
+
+generate_front_door_gif: 'convert -delay 100 -loop 0 /shared/files/front_door_camera/*.jpg /shared/files/front_door_camera/front.gif'

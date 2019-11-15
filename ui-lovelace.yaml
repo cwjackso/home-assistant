@@ -22,16 +22,17 @@ views:
         - type: picture-glance
           title: "Hallway"
           entities: 
-           - entity: light.hallway
+           - entity: group.hallway_lights
            - entity: climate.hallway
            - entity: binary_sensor.door_window_sensor_158d0001e7e302
           image: https://lh3.googleusercontent.com/muER2maU0uCO89VaVOPjvtekb1cMwojNEjE1-BHpytJN10DYgaV4w1r9L4E6fPUt60mYmD_k36EbhDfmv-EQOoRVvfB-nwcyk1LCPX2C0MT4eM1shmIvV30ogWgVPOeo-WcC83j7CbsxmWcmV-03MOAi19j2a771MUYD-rGnYEMz8bvXZqYPG_2M8i-NTTF6SujTzHbprPZFcl2FGgLGkBznmBvgSv-Qb-Faqq024ov1MmEZQ4cZMHhoqbr1IpdNouvYBUyzc8PU2bxR4zXKkhfzVG_H1Er-hK9TV5cos7QSn_D1fEFNAlgv0f1E8WphUYknGwj6hASM6AxVtH7nF3A9QlUiFIHKhDl4Zlp93mPHzLd14zatZjqdjp_k7Q7G6R74w2xu3c93osJ0PpS2-RexMdjC_DNtIqMNQh2eCEgip0J6PkXIUFWm4datR0m4ywJ2lUmahM0kpvlEhD-7qBNo7xG-_99Rx0_smOpQAN-DEBRUUgEX1fokJaUHZtb3x2_LIws70jrWCK72pOhdVKRK3fnsfOce7ZAaAxiRGvmwqc19ouGID5iG1zFI8KEipU4rXNaCsOk2tdwvwGvztto02O6wZPsOxpRuTP1Wz8Qc5PbR8O49iEuAmJcltyw3xdc78nzyfwHhjfBqXK0zMDTUuivcE6GjUy9LtZ5tRULS_CZ-L5BCsKlP=w2718-h1528-no
-          entity: light.hallway
+          entity: group.hallway_lights
           tap_action: 
             action: navigate
             navigation_path: 2
           hold_acton:
             action: more-info
+            
         - type: picture-glance
           title: "Living room"
           entities: 
@@ -75,11 +76,11 @@ views:
         - type: picture-glance
           title: "Kitchen"
           entities: 
-           - light.kitchen
+           - group.kitchen_lights
            - media_player.kitchen
            - binary_sensor.motion_sensor_158d0001644d03
           image: https://lh3.googleusercontent.com/QNbRNymR-kLYIuWThqj3HLlS1wrKE9mUoGwsFxOBP9-SfmPuF0w70PEkXYms5kkHRH2SlstlzgIJN7S1L65G2BSxXIx8vDTep1D0-58Rk5nWaKe_GjdQuhi6oUUzQ4xrFgl2O093b7c7_QkwPlYBnriGmwivgxNMuKKwd8Th12WLFclG8353I68uAcwBOKXjxzKAeC2u4Zmwo9zHkPn3u2CdDbo-1SpvrR4o65t0sKInMINBb5pxkwcinOZfuf-baFWLmBvNK2IN8Ix3df-LipXWDsEzdCb3LOhrOS6b081lJq7rxJK-vdxxbX6NNKRnl82gj_khaxWqUoJ7WAphYCDVURukBxb8Gtxoijfs7GAS8pRWOdxYOb7qPyUJ5HHFCvwH6HFzsXSTiDQMgrZfDmisQWGk3DxTB8qGYrSGiXDZBGEsj8JK0KfUHe4pRK6mkboELDHHNYbLg8-u52Qi_7zhiifEV-aFOnKQ2yLWT06ANux1bdMYqEz7cbQbkKo-v3S03CJsbC3u8p2rNJS2it9Iqoij1lraWNiMuzNXIHp_e4vcZdpABapNZFoDoCgYV2LMhWVQgvqhiBKFd3Ova4ebhM3rHSePoU_RhwaVOdJgIWXasj1m7Qhjr-gHWN6JwxLmHR7iyAInnWSzq0QmsxUIErxb4mi6HRiFGfk_nhIRDDBgB9k-hzWw=w2718-h1528-no
-          entity: light.kitchen
+          entity: group.kitchen_lights
           tap_action: 
             action: navigate
             navigation_path: 5
@@ -91,11 +92,12 @@ views:
           camera_image: camera.garden
           entities:
             - switch.garden_lights
-        #- type: picture-entity
-        #  title: "Front Door"
-        #  entity: camera.front_door
-        #  camera_image:  camera.front_door.
-          
+        - type: picture-glance
+          title: "Front door"
+          entity: camera.front_door
+          camera_image: camera.front_door
+          entities:
+            - binary_sensor.door_window_sensor_158d0001e7e302
         - type: conditional
           conditions:
             - entity: media_player.all_house
@@ -132,7 +134,6 @@ views:
               - sensor.next_bus_direction
               - sensor.next_bus_scheduled
               - sensor.next_bus_route
-              - sensor.uber_to_town
               - sensor.black_bin_date
               - sensor.brown_bin_date
               - sensor.blue_bin_date
@@ -177,11 +178,11 @@ views:
           entity: media_player.soundbar
       - type: conditional
         conditions:
-          - entity: media_player.ysp1600_d5c2e7_main
+          - entity: media_player.ysp_1600_d5c2e7_main
             state_not: "off"
         card:
           type: media-control
-          entity: media_player.ysp1600_d5c2e7_main
+          entity: media_player.ysp_1600_d5c2e7_main
     # View tab title.
   - icon: mdi:stairs
     title: Hallway
@@ -191,11 +192,11 @@ views:
       - type: picture-glance
         title: "Hallway"
         entities: 
-         - entity: light.hallway
+         - entity: group.hallway_lights
          - entity: climate.hallway
          - entity: binary_sensor.door_window_sensor_158d0001e7e302
         image: https://lh3.googleusercontent.com/muER2maU0uCO89VaVOPjvtekb1cMwojNEjE1-BHpytJN10DYgaV4w1r9L4E6fPUt60mYmD_k36EbhDfmv-EQOoRVvfB-nwcyk1LCPX2C0MT4eM1shmIvV30ogWgVPOeo-WcC83j7CbsxmWcmV-03MOAi19j2a771MUYD-rGnYEMz8bvXZqYPG_2M8i-NTTF6SujTzHbprPZFcl2FGgLGkBznmBvgSv-Qb-Faqq024ov1MmEZQ4cZMHhoqbr1IpdNouvYBUyzc8PU2bxR4zXKkhfzVG_H1Er-hK9TV5cos7QSn_D1fEFNAlgv0f1E8WphUYknGwj6hASM6AxVtH7nF3A9QlUiFIHKhDl4Zlp93mPHzLd14zatZjqdjp_k7Q7G6R74w2xu3c93osJ0PpS2-RexMdjC_DNtIqMNQh2eCEgip0J6PkXIUFWm4datR0m4ywJ2lUmahM0kpvlEhD-7qBNo7xG-_99Rx0_smOpQAN-DEBRUUgEX1fokJaUHZtb3x2_LIws70jrWCK72pOhdVKRK3fnsfOce7ZAaAxiRGvmwqc19ouGID5iG1zFI8KEipU4rXNaCsOk2tdwvwGvztto02O6wZPsOxpRuTP1Wz8Qc5PbR8O49iEuAmJcltyw3xdc78nzyfwHhjfBqXK0zMDTUuivcE6GjUy9LtZ5tRULS_CZ-L5BCsKlP=w2718-h1528-no
-        entity: light.hallway
+        entity: group.hallway_lights
         
       - type: entities
         title: "Hallway lights"
@@ -203,6 +204,7 @@ views:
         entities:
         - light.porch
         - light.gateway_light_7811dcb38a39
+        - light.attic_landing_light
         - binary_sensor.door_window_sensor_158d0001e7e302
       - type: thermostat
         entity: climate.hallway
@@ -235,7 +237,7 @@ views:
         - light.bedside_right
       - type: conditional
         conditions:
-          - entity: media_player.bedroo
+          - entity: media_player.bedroom
             state: "on"
         card:
           type: media-control
@@ -257,13 +259,6 @@ views:
         show_header_toggle: true
         entities:
         - switch.spare_room_light
-      #- type: conditional
-      #  conditions:
-      #    - entity: media_player.bedroo
-      #      state: "on"
-      #  card:
-      #    type: media-control
-      #    entity: media_player.bedroom
     # View tab title.
   - icon: mdi:pot-mix
     title: Kitchen
@@ -273,11 +268,11 @@ views:
       - type: picture-glance
         title: "Kitchen"
         entities: 
-         - light.kitchen
+         - group.kitchen_lights
          - media_player.kitchen
          - binary_sensor.motion_sensor_158d0001644d03
         image: https://lh3.googleusercontent.com/QNbRNymR-kLYIuWThqj3HLlS1wrKE9mUoGwsFxOBP9-SfmPuF0w70PEkXYms5kkHRH2SlstlzgIJN7S1L65G2BSxXIx8vDTep1D0-58Rk5nWaKe_GjdQuhi6oUUzQ4xrFgl2O093b7c7_QkwPlYBnriGmwivgxNMuKKwd8Th12WLFclG8353I68uAcwBOKXjxzKAeC2u4Zmwo9zHkPn3u2CdDbo-1SpvrR4o65t0sKInMINBb5pxkwcinOZfuf-baFWLmBvNK2IN8Ix3df-LipXWDsEzdCb3LOhrOS6b081lJq7rxJK-vdxxbX6NNKRnl82gj_khaxWqUoJ7WAphYCDVURukBxb8Gtxoijfs7GAS8pRWOdxYOb7qPyUJ5HHFCvwH6HFzsXSTiDQMgrZfDmisQWGk3DxTB8qGYrSGiXDZBGEsj8JK0KfUHe4pRK6mkboELDHHNYbLg8-u52Qi_7zhiifEV-aFOnKQ2yLWT06ANux1bdMYqEz7cbQbkKo-v3S03CJsbC3u8p2rNJS2it9Iqoij1lraWNiMuzNXIHp_e4vcZdpABapNZFoDoCgYV2LMhWVQgvqhiBKFd3Ova4ebhM3rHSePoU_RhwaVOdJgIWXasj1m7Qhjr-gHWN6JwxLmHR7iyAInnWSzq0QmsxUIErxb4mi6HRiFGfk_nhIRDDBgB9k-hzWw=w2718-h1528-no
-        entity: light.kitchen
+        entity: group.kitchen_lights
       - type: entities
         title: "Kitchen lights"
         show_header_toggle: true

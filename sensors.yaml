@@ -8,13 +8,6 @@
 #google wifi
   - platform: google_wifi
 
-#uber
-  - platform: uber
-    server_token: !secret uber
-    end_latitude: 53.380487
-    end_longitude: -1.468687
-
-
 #bins
 #  - platform: rest
 #    resource: !secret bins_api
@@ -61,9 +54,6 @@
       next_bus_scheduled:
         friendly_name: 'Next bus scheduled  / estimated'
         value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].scheduled}} / {{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].estimated}}'
-      uber_to_town:
-        friendly_name: 'Uber X'
-        value_template: "{{states.sensor.uberx_time.attributes['Price estimate']}} arrival in {{ (states.sensor.uberx_time.attributes['Pickup time estimate (in seconds)']|int / 60)|int }} minutes"
       black_bin_date:
         friendly_name: 'Next black bin collection'
         value_template: "{{states.sensor.bin_days.attributes['black']}}"

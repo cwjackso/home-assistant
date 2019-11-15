@@ -14,11 +14,11 @@
       volume_set:
         service: media_player.volume_set
         data_template:
-          entity_id: media_player.ysp1600_d5c2e7_main
+          entity_id: media_player.ysp_1600_d5c2e7_main
           volume_level: '{{ volume_level }}'
     attributes:
-      is_volume_muted: media_player.ysp1600_d5c2e7_main|is_volume_muted
-      volume_level: media_player.ysp1600_d5c2e7_main|volume_level
+      is_volume_muted: media_player.ysp_1600_d5c2e7_main|is_volume_muted
+      volume_level: media_player.ysp_1600_d5c2e7_main|volume_level
 
   - platform: universal
     name: Universal media player
@@ -28,4 +28,5 @@
       - media_player.kitchen
       - media_player.soundbar
       - media_player.bedroom
+      - media_player.spare_room
       - media_player.universal_tv

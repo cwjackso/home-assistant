@@ -20,6 +20,8 @@ homeassistant:
 
 system_health:
 
+stream:
+
 # Show links to resources in log and frontend
 #introduction:
 weather:
@@ -77,7 +79,7 @@ http:
 # nmap device tracking
 device_tracker:
   - platform: nmap_tracker
-    hosts: 192.168.86.140-144
+    hosts: 192.168.86.140-146
     track_new_devices: yes
     consider_home: 0:35
 
@@ -97,7 +99,8 @@ sun:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
   - platform: microsoft
     api_key: !secret ms_speech_api
     language: en-gb
@@ -153,16 +156,52 @@ image_processing:
       # open image
       #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
       #graph: /config/tensorflow/faster_rcnn_inception_resnet_v2_atrous_lowproposals_oid.pb
+      
+  - platform: tensorflow
+    scan_interval: 10000
+    file_out:
+      - "/shared/files/front_door_camera/tensor/{{ camera_entity.split('.')[1] }}.jpg"
+    source:
+      - entity_id: camera.front_door
+    model:
+      # coco
+      graph: /config/tensorflow/faster_rcnn_inception_v2_coco.pb
+      #graph: /config/tensorflow/faster_rcnn_resnet101_coco.pb
+      categories:
+        - person
+        - bird
+        - cat
+        - dog
+        - horse
+        - sheep
+        - cow
+        - elephant
+        - bear
+        - zebra
+        - giraffe
+      # open image
+      #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
+      #graph: /config/tensorflow/faster_rcnn_inception_resnet_v2_atrous_lowproposals_oid.pb
 
 camera:
-  #- platform: xeoma
-  #  host: https://cctv.12dovedale.digital/
-  #- platform: generic
-  #  name: "Front door"
-  #  still_image_url: !secret frontdoor_cam_notify_proxy
   - platform: mjpeg
     name: "Garden"
     mjpeg_url: !secret garden_cam_stream
+    
+  - platform: mjpeg
+    name: "Front door"
+    mjpeg_url: !secret front_door_cam_stream
+
+  - platform: generic
+    name: "Garden stream"
+    still_image_url: !secret garden_cam_stream
+    stream_source: !secret garden_cam_rtsp
+
+  - platform: generic
+    name: "Front door stream"
+    still_image_url: !secret garden_cam_stream
+    stream_source: !secret front_door_cam_rtsp
+
 light:
   - platform: mqtt
     name: "Mouse lamp"
@@ -177,12 +216,12 @@ light:
 ifttt:
   key: !secret ifttt
 
-
 notify:
-  - name: home_assistant
-    platform: html5
-    gcm_api_key: !secret gcm_api_key
-    gcm_sender_id: !secret gcm_sender_id
+  - platform: html5
+    name: home_assistant
+    vapid_pub_key: !secret vapid_pub_key
+    vapid_prv_key: !secret vapid_prv_key
+    vapid_email: !secret vapid_email
 
 
 panel_iframe:

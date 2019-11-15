@@ -6,6 +6,15 @@
       topic: camera/motion/garden
     action:
       - service: script.check_garden_tensor
+      
+# mqtt topic automation when garden camera has motion
+  - id: front_door_motion
+    alias: Front Door Motion
+    trigger:
+      platform: mqtt
+      topic: camera/motion/front_door
+    action:
+      - service: script.check_front_door_tensor
           
 # mqtt topic automation when camera has an error
   - id: garden_error

@@ -5,9 +5,6 @@ people:
     - person.carl
     - person.becs
     - person.ollie
-    #- device_tracker.3c286dd0e0c2 #carl
-    #- device_tracker.galaxys8lan # becs
-    #- device_tracker.androidfadcc20bfc24cd4blan #ollie
 
 soundbar:
   name: Living room soundbar
@@ -60,6 +57,7 @@ hallway_lights:
   entities:
     - light.porch
     - light.gateway_light_7811dcb38a39
+    - light.attic_landing_light
 
 bedroom_lights:
   name: Bedroom Lights
@@ -89,13 +87,21 @@ sky:
   entities:
     - input_select.channel
     
+
+morning_notification_devices:
+  name: Google home devices
+  entities:
+    - media_player.living_room_home
+    - media_player.kitchen
     
 google_home_devices:
   name: Google home devices
   entities:
-    - media_player.kitchen_home
     - media_player.living_room_home
-
+    - media_player.kitchen 
+    - media_player.bedroom_home 
+    - media_player.spare_room
+    
 alarm:
   name: House Alarm
   entities:

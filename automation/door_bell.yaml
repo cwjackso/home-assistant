@@ -2,9 +2,10 @@
   - id: doorbell_pushed
     alias: Doorbell Pushed
     trigger:
-      platform: mqtt
-      topic: home/nodemcu/doorbell
-      payload: 'on'
+      platform: state
+      entity_id: binary_sensor.doorbell
+      from: "off"
+      to: "on"
     action:
       - service: media_player.play_media
         data:
@@ -26,9 +27,10 @@
   - id: doorbell_pushed_lights_on
     alias: Doorbell Pushed Light on
     trigger:
-      platform: mqtt
-      topic: home/nodemcu/doorbell
-      payload: 'on'
+      platform: state
+      entity_id: binary_sensor.doorbell
+      from: "off"
+      to: "on"
     condition:
       condition: and
       conditions:
