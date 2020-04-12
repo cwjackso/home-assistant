@@ -13,11 +13,18 @@ homeassistant:
   time_zone: Europe/London
   # Customization file
   customize: !include customize.yaml
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password
+      api_password: !secret http_password
 
 #whitelist the camera snapshot folder
   whitelist_external_dirs:
     - /shared/files
 
+ifttt:
+  key: !secret ifttt_key
+  
 system_health:
 
 stream:
@@ -71,10 +78,9 @@ config:
 
 http:
   # Secrets are defined in the file secrets.yaml
-  api_password: !secret http_password
   use_x_forwarded_for: true
   trusted_proxies: 127.0.0.1
-
+  base_url: !secret base_url
 
 # nmap device tracking
 device_tracker:

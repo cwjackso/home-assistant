@@ -122,7 +122,6 @@ motion_sensors:
 living_room:
   name: Living Room
   icon: mdi:sofa
-#  view: yes
   entities:
     - group.living_room_lights
     - group.nest
@@ -133,7 +132,6 @@ living_room:
 hallway:
   name: Hallway
   icon: mdi:stairs
-#  view: yes
   entities:
     - group.hallway_lights
     - group.nest
@@ -141,7 +139,6 @@ hallway:
 bedroom:
   name: Bedroom
   icon: mdi:hotel
-#  view: yes
   entities:
     - media_player.bedroom
     - group.bedroom_lights
@@ -150,75 +147,7 @@ bedroom:
 kitchen:
   name: Kitchen
   icon: mdi:pot
-#  view: yes
   entities:
     - media_player.kitchen
     - group.kitchen_lights
     - group.nest
-#views
-default_view:
-    view: yes
-    icon: mdi:home 
-    entities:
-      - group.triggers
-      - group.scenes
-      - group.people
-      - group.nest
-      - group.weather
-      - group.local_data
-      - group.alarm
-      - group.wifi
-      - weather.dark_sky
-
-all_lighting:
-  name: Lighting
-  icon: mdi:lightbulb-on
-  view: yes
-  entities:
-    - group.living_room_lights
-    - group.hallway_lights
-    - group.bedroom_lights
-    - group.kitchen_lights
-
-all_media:
-  name: Media
-  icon: mdi:play-circle
-  view: yes
-  entities:
-    - media_player.universal_media_player
-    - media_player.all_house
-    - media_player.downstairs
-    - group.living_room_tv
-    - group.soundbar
-    - media_player.bedroom
-    - media_player.kitchen
-    - group.google_home_devices
-
-security:
-  name: Home security
-  icon: mdi:security-home
-  view: yes
-  entities:
-    - group.alarm
-    - group.door_sensors
-    - group.motion_sensors
-    - camera.garden
-    - camera.front_door
-    - sensor.illumination_7811dcb38a39
-    
-#all_cameras:
-#  name: Cameras
-#  icon: mdi:cctv
-#  view: yes
-#  entities:
-#    - camera.garden
-
-settings:
-  name: Settings group
-  icon: mdi:auto-fix
-  view: yes
-  entities:
-    - group.all_automations
-    - group.all_scripts
-
-

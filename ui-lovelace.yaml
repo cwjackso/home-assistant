@@ -90,12 +90,14 @@ views:
           title: "Garden"
           entity: camera.garden
           camera_image: camera.garden
+          camera_view: live
           entities:
             - switch.garden_lights
         - type: picture-glance
           title: "Front door"
           entity: camera.front_door
           camera_image: camera.front_door
+          camera_view: live
           entities:
             - binary_sensor.door_window_sensor_158d0001e7e302
         - type: conditional

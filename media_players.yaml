@@ -1,10 +1,10 @@
 # sony bravia TV
-  - platform: braviatv
-    host: 192.168.86.38
+#  - platform: braviatv
+#    host: 192.168.86.38
     #yamaha multicast
   - platform: yamaha_musiccast
     host: 192.168.86.58
-    port: 5005
+    #port: 5005
 
   - platform: universal
     name: Universal TV

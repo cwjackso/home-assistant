@@ -33,7 +33,9 @@
       entity_id: binary_sensor.switch_158d0002011ffa
       click_type: long_click_press
   action:
-    service: script.bedtime
+    service: light.toggle
+    data:
+      entity_id: light.attic_landing_light
     
 #Kitchen motion
 - alias: kitchen motion
@@ -50,14 +52,14 @@
         brightness_pct: 75 
 
 #Dim kitch light kitchen with no motion for 5 mins
-- alias: Kitchen no motion 5 mins
+- alias: Kitchen no motion 10 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
     from: 'on'
     to: 'off'
     for:
-      minutes: 5
+      minutes: 10
   condition:
     condition: state
     entity_id: light.kitchen
@@ -69,14 +71,14 @@
         brightness_pct: 25
         
 #Turn off kitchen light with no motion for 15 mins
-- alias: Kitchen no motion 15 mins
+- alias: Kitchen no motion 25 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
     from: 'on'
     to: 'off'
     for:
-      minutes: 15
+      minutes: 25
   condition:
     condition: state
     entity_id: light.kitchen

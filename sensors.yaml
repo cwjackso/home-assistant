@@ -63,24 +63,24 @@
       blue_bin_date:
         friendly_name: 'Next blue bin collection'
         value_template: "{{states.sensor.bin_days.attributes['blue']}}"
-      daily_summary:
-        friendly_name: "Daily Summary"
-        value_template: >
-          Good morning!
-          {% if now().isoweekday() == 4%}
-          It will take {{ states.sensor.time_to_school.attributes.duration_in_traffic }} to get to school and {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
-          {% elif now().isoweekday() in (1,2,3,4,5) %}
-          It will take {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
-          {% else %}
-          Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }}.
-          {% endif %}
-          {% if now().isoweekday() == 1%}
-          This weeks forecast is {{ states.sensor.dark_sky_daily_summary }}
-          today it will be {{ states.sensor.dark_sky_hourly_summary.state }}
-          {% else %}
-          Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} 
-          {% endif %}
-          Have a great day.
+#      daily_summary:
+#        friendly_name: "Daily Summary"
+#        value_template: >
+#          Good morning!
+#          {% if now().isoweekday() == 4%}
+#          It will take {{ states.sensor.time_to_school.attributes.duration_in_traffic }} to get to school and {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
+#          {% elif now().isoweekday() in (1,2,3,4,5) %}
+#          It will take {{ states.sensor.time_to_work.attributes.duration_in_traffic }} to get to work.
+#          {% else %}
+#          Current travel time to the city center is around {{ states.sensor.time_to_work.attributes.duration_in_traffic }}.
+#          {% endif %}
+#          {% if now().isoweekday() == 1%}
+#          This weeks forecast is {{ states.sensor.dark_sky_daily_summary }}
+#          today it will be {{ states.sensor.dark_sky_hourly_summary.state }}
+#          {% else %}
+#          Todays forecast is {{ states.sensor.dark_sky_hourly_summary.state }} 
+#          {% endif %}
+#          Have a great day.
 
 #with a high of {{ states.sensor.dark_sky_daytime_high_temperature.state }}°C.
 # {% if(as_timestamp(strptime(states.sensor.bin_days.attributes.black, "%d %b %Y")) - as_timestamp(now())) < (60 * 60 * 36) %}
