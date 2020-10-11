@@ -53,8 +53,6 @@ sensor.brown_bin_date:
   icon: mdi:recycle
 light.gateway_light_7811dcb38a39:
   friendly_name: Landing night light
-binary_sensor.door_window_sensor_158d0001e7e302:
-  friendly_name: Front door
   icon: mdi:door
 binary_sensor.motion_sensor_158d0001644d03:
   friendly_name: Kitchen

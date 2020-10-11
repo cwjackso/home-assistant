@@ -1,5 +1,6 @@
 #single click on switch
-- alias: xiaoma switch click
+- id: xiaoma_click
+  alias: xiaoma switch click
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -12,7 +13,8 @@
       entity_id: light.bedroom
       
 #double click on switch
-- alias: xiaoma switch double click
+- id: xiaoma_double_click
+  alias: xiaoma switch double click
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -25,7 +27,8 @@
       entity_id: light.bedside_left
 
 #long press on switch
-- alias: xiaoma switch long click
+- id: xiaoma_long_press  
+  alias: xiaoma switch long click
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -38,7 +41,8 @@
       entity_id: light.attic_landing_light
     
 #Kitchen motion
-- alias: kitchen motion
+- id: kitechen_motion
+  alias: kitchen motion
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
@@ -52,7 +56,8 @@
         brightness_pct: 75 
 
 #Dim kitch light kitchen with no motion for 5 mins
-- alias: Kitchen no motion 10 mins
+- id: kitchen_no_motion_10
+  alias: Kitchen no motion 10 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
@@ -71,7 +76,8 @@
         brightness_pct: 25
         
 #Turn off kitchen light with no motion for 15 mins
-- alias: Kitchen no motion 25 mins
+- id: kitchen_no_motion_25
+  alias: Kitchen no motion 25 mins
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0001644d03
@@ -89,10 +95,11 @@
         entity_id: light.kitchen
     
 #front door opened
-- alias: Front door opened
+- id: front_door_opened
+  alias: Front door opened
   trigger:
     platform: state
-    entity_id: binary_sensor.door_window_sensor_158d0001e7e302
+    entity_id: binary_sensor.front_door
     from: 'off'
     to: 'on'
   condition: !include ../condition_includes/lights_home_and_dark.yaml
@@ -100,3 +107,35 @@
     - service: light.turn_on
       data:
         entity_id: light.porch
+
+#kitchen door opened
+- id: kitchen_door_opened
+  alias: Kitchen door opened
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kitchen_door
+    from: 'off'
+    to: 'on'
+  condition: !include ../condition_includes/lights_home_and_dark.yaml
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.garden_lights
+    - service: light.turn_on
+      data:
+        entity_id: light.kitchen_lights
+        
+        
+#porch light off after door closed
+- id: porch_off_after_door_closed
+  alias: 'Turn porch light off after front door closed'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door
+    from: 'on'
+    to: 'off'
+    for:
+      seconds: 30
+  action:
+    service: light.turn_off
+    entity_id: light.porch

@@ -33,8 +33,6 @@
           brightness_pct: 60
       - service: switch.turn_on
         entity_id: switch.garden_lights
-      - service: switch.turn_on
-        entity_id: switch.christmas_tree
         
 #turn the lights off when we leave
   - id: lights_on_depart
@@ -48,21 +46,21 @@
         minutes: 10
     action:
       - service: light.turn_off
-        entity_id: group.all_lights
+        entity_id: all
       - service: switch.turn_off
         entity_id: switch.garden_lights
       - service: switch.turn_off
-        entity_id: switch.spare_room_light
+        entity_id: switch.office_light
 
-#porch light off after 4 minutes
-  - id: porch_off_after_4_minutes
+#porch light off after 4 minutes (in case door is left open)
+  - id: porch_off_after_30_minutes
     alias: 'Turn porch light off after 4 minutes'
     trigger:
       platform: state
       entity_id: light.porch
       to: 'on'
       for:
-        minutes: 4
+        minutes: 30
     condition:
       condition: state
       entity_id: group.people
@@ -70,6 +68,7 @@
     action:
       service: light.turn_off
       entity_id: light.porch
+
 
 #Lights to turn on when dark
   - id: lights_when_dark_automation
@@ -98,5 +97,3 @@
           brightness_pct: 60
       - service: switch.turn_on
         entity_id: switch.garden_lights
-      - service: switch.turn_on
-        entity_id: switch.christmas_tree

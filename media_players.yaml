@@ -1,24 +1,10 @@
 # sony bravia TV
 #  - platform: braviatv
+#    name: Sony TV
 #    host: 192.168.86.38
     #yamaha multicast
   - platform: yamaha_musiccast
     host: 192.168.86.58
-    #port: 5005
-
-  - platform: universal
-    name: Universal TV
-    children:
-      - media_player.sony_bravia_tv
-    commands:
-      volume_set:
-        service: media_player.volume_set
-        data_template:
-          entity_id: media_player.ysp_1600_d5c2e7_main
-          volume_level: '{{ volume_level }}'
-    attributes:
-      is_volume_muted: media_player.ysp_1600_d5c2e7_main|is_volume_muted
-      volume_level: media_player.ysp_1600_d5c2e7_main|volume_level
 
   - platform: universal
     name: Universal media player
@@ -26,7 +12,7 @@
       - media_player.all_house
       - media_player.downstairs
       - media_player.kitchen
-      - media_player.soundbar
+      - media_player.living_room
       - media_player.bedroom
       - media_player.spare_room
-      - media_player.universal_tv
+      - media_player.ysp_1600_d5c2e7_main

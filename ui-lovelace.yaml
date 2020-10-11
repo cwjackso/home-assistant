@@ -24,7 +24,7 @@ views:
           entities: 
            - entity: group.hallway_lights
            - entity: climate.hallway
-           - entity: binary_sensor.door_window_sensor_158d0001e7e302
+           - entity: binary_sensor.front_door
           image: https://lh3.googleusercontent.com/muER2maU0uCO89VaVOPjvtekb1cMwojNEjE1-BHpytJN10DYgaV4w1r9L4E6fPUt60mYmD_k36EbhDfmv-EQOoRVvfB-nwcyk1LCPX2C0MT4eM1shmIvV30ogWgVPOeo-WcC83j7CbsxmWcmV-03MOAi19j2a771MUYD-rGnYEMz8bvXZqYPG_2M8i-NTTF6SujTzHbprPZFcl2FGgLGkBznmBvgSv-Qb-Faqq024ov1MmEZQ4cZMHhoqbr1IpdNouvYBUyzc8PU2bxR4zXKkhfzVG_H1Er-hK9TV5cos7QSn_D1fEFNAlgv0f1E8WphUYknGwj6hASM6AxVtH7nF3A9QlUiFIHKhDl4Zlp93mPHzLd14zatZjqdjp_k7Q7G6R74w2xu3c93osJ0PpS2-RexMdjC_DNtIqMNQh2eCEgip0J6PkXIUFWm4datR0m4ywJ2lUmahM0kpvlEhD-7qBNo7xG-_99Rx0_smOpQAN-DEBRUUgEX1fokJaUHZtb3x2_LIws70jrWCK72pOhdVKRK3fnsfOce7ZAaAxiRGvmwqc19ouGID5iG1zFI8KEipU4rXNaCsOk2tdwvwGvztto02O6wZPsOxpRuTP1Wz8Qc5PbR8O49iEuAmJcltyw3xdc78nzyfwHhjfBqXK0zMDTUuivcE6GjUy9LtZ5tRULS_CZ-L5BCsKlP=w2718-h1528-no
           entity: group.hallway_lights
           tap_action: 
@@ -38,8 +38,8 @@ views:
           entities: 
            - entity: light.living_room
            #- entity: switch.christmas_tree
-           - entity:  media_player.soundbar
-           - entity: media_player.sony_bravia_tv
+           - entity:  media_player.living_room
+           - entity: media_player.living_room_tv
              icon: mdi:television
           image: https://lh3.googleusercontent.com/lnmrg4Iekt4tCqXs-8yQOxQ9KGDvuNX_lAM3bFM6Rvyaj8CrzAFfr-juCyPNexTudRqdfydHLzzTVRdlpSm7U9JOE709yjJlqRX0n9XordW5wjomfa5SoA4TxHfOrIkuA09EX0YffzmyrTshHuOUpyZ5_HfB9k1ngtRhkyw5BgqNq7mEN9rGb6fXiODV2MgTAEbCOUlNggS3PGmU2VF9w02XHEKH8nda6cenqTZjZtsA-oZPw5xbb8GipMBjm0QMYUGhvUwzXyA8SEbmv7Zjp2TozR2h5adlMUsFMm9du4SvXBTvZuxqIFzSJuaUGDItclq62n42FNpfsTuucVh32ba6AA3bkmvaekIlQmyYOdotSD-dd-R3KQHUu8WjXF2IcQoDhyrGcTb0oXknvtPgDRw-eRWKm7028p4idLtwJzZo_ekynHnyV5a9H93I5s-F3mqfRFzmSuf2rn7RIu1HvNmZ1ubu-9-sQUvymoYzEGE3hH8T6MaO8vG7gDqLjsx5tm4n3VVGGaCOS37aIgna3QerBx54V-DhIGSTdXGsB7byye_cQ_9wDch7XpCifwzm_IqdZvm7NQ10Q2Al0Ur4d7OK7nzH2JJWolN87868ZSs6KmruvmjDYAqbzdtsMXXpFhswdCgTHEDbfYvAS2TH2hkJrmhT6PG5vbRJIpGqxO-pdNGUE7OzagrO=w2718-h1528-no
           entity: light.living_room
@@ -61,11 +61,11 @@ views:
           hold_acton:
             action: more-info
         - type: picture-glance
-          title: "Spare room"
+          title: "Office"
           entities: 
-           - switch.spare_room_light
-          image: https://lh3.googleusercontent.com/hUBDYiFJFvNN3F8BgprMye8Y3L2JN2BfFL7sZxLYwevsU1j5BVYkFwinwrY0QZAgHYJLZiXDvtKG_xvSzXXvt7OLx-RE9wR2BDm-CrntkwAzpuC1OmH2FEd5MjojQY-rJBNpXpj0lMXdGTXuDbXLfhQsZjY4s4o4xmw3Q43sfwJp0n_L7rcRZviqB2mQwunBtHHDbIUmAUzu4TlPkw7j7ei-OykRlLeF_kC6wNz11RmOJMqdImyuPctLX0zTTV6EO-XSgC1Lnrw7lY4t-8gD7cJb9yA2Rd7JOC4mE6E55RcrM3UDnmrRdxhJtOCOoY6_Eh5fejv9b6DxSQEyzlcp0P7PoJjXzxz8PXu5RecMrTtKH1_y-zULA3cGrYRB5Zvlo2hQkEPPlpH0b_XMNaRK0ybO3c2jmWuTY_4WY1oU0J3K8C-UXHWmUI89UTQXwjCa5BvqbWWxX4wdHzydKsczFwijMcv4Ww0f727rmu-_RLvwetAjKgQFTcdVAVf8a-DWP0-_S1tMnU7-iJGLwwPpHbPhRH_WPUi1Wkt6XzwAt_oq8casE5oehYNTiXE4y12wmff3oIe8Qjogs3i2WtTAFA01qti0c14L5udIDbw_jVptNpXUFUd6V40prDpF9I4HEL93Hak_SJxXqfhudR28cQL1=w3002-h1689-no
-          entity: switch.spare_room_light
+           - switch.office_light
+          image: https://lh3.googleusercontent.com/pw/ACtC-3cPHm3qSzPlY36pm_rm4EWDPUXbRVC8xxi6eZNcshzVSI-KZtiehXR5DKqylFjcHSB3pBp_dN_IZKCNG4wHefKYq0-PLppXUJuJa06QD00EbdlEf4tkQT7as_5ij8X4qAJOWAk4qDbGk6NU5HFT2PvsaQ=w1511-h850-no
+          entity: switch.office_light
           tap_action: 
             action: navigate
             navigation_path: 4
@@ -99,7 +99,22 @@ views:
           camera_image: camera.front_door
           camera_view: live
           entities:
-            - binary_sensor.door_window_sensor_158d0001e7e302
+            - binary_sensor.front_door
+        - type: picture-glance
+          tap_action: 
+            action: navigate
+            navigation_path: 6
+          image: https://lh3.googleusercontent.com/pw/ACtC-3fTtqcq1Cg7DMrIv6sKFukmatpBb6f3l0RbwnoY6D_hEXieXnu1LTj94z44FcyBa-mEQjpzS1Ct0yZesn43Ttx9VGbSrLFS4Qpca7Kqm3cGFO4XJZlyn_Uh8GDX4e6tGPTBqnJNORiAveb5JHy0jgFDbA=w640-h360-no?authuser=0
+          entities:
+            - sensor.evoque_alarm
+            - device_tracker.evoque_device_tracker
+            - sensor.evoque_info
+            - sensor.evoque_last_trip
+            - sensor.evoque_range
+            - sensor.evoque_service_info
+            - sensor.evoque_status
+            - sensor.evoque_tyres
+            - sensor.evoque_windows
         - type: conditional
           conditions:
             - entity: media_player.all_house
@@ -116,9 +131,13 @@ views:
             entitiy: media_player.downstairs
       - type: vertical-stack
         cards:
+        
         # The filter card will filter entities for their state
           - type: thermostat
             entity: climate.hallway
+          - type: alarm-panel
+            name: House Alarm
+            entity: alarm_control_panel.house_alarm
           - type: glance
             entities:
               - person.carl
@@ -127,10 +146,11 @@ views:
               #- device_tracker.3c286dd0e0c2
               #- device_tracker.galaxys8lan
               #- device_tracker.androidfadcc20bfc24cd4blan
+          - type: weather-forecast
+            entity: weather.dark_sky
           - type: entities
             show_header_toggle: false
             entities:
-              - alarm_control_panel.house_alarm
               - script.bedtime
               - switch.smart_plug
               - sensor.next_bus_direction
@@ -139,8 +159,6 @@ views:
               - sensor.black_bin_date
               - sensor.brown_bin_date
               - sensor.blue_bin_date
-          - type: weather-forecast
-            entity: weather.dark_sky
     # View tab title.
   - icon: mdi:sofa
     title: Living room
@@ -164,20 +182,27 @@ views:
         - light.living_room_table_lamp
         - light.living_room_ceiling_1
         - light.living_room_ceiling_2
+#      - type: conditional
+#        conditions:
+#          - entity: media_player.sony_bravia_tv
+#            state_not: "off"
+#        card:
+#          type: media-control
+#          entity: media_player.sony_bravia_tv
       - type: conditional
         conditions:
-          - entity: media_player.sony_bravia_tv
+          - entity: media_player.living_room_tv
             state_not: "off"
         card:
           type: media-control
-          entity: media_player.sony_bravia_tv
+          entity: media_player.living_room_tv
       - type: conditional
         conditions:
-          - entity: media_player.soundbar
+          - entity: media_player.living_room
             state_not: "off"
         card:
           type: media-control
-          entity: media_player.soundbar
+          entity: media_player.living_room
       - type: conditional
         conditions:
           - entity: media_player.ysp_1600_d5c2e7_main
@@ -196,7 +221,7 @@ views:
         entities: 
          - entity: group.hallway_lights
          - entity: climate.hallway
-         - entity: binary_sensor.door_window_sensor_158d0001e7e302
+         - entity: binary_sensor.front_door
         image: https://lh3.googleusercontent.com/muER2maU0uCO89VaVOPjvtekb1cMwojNEjE1-BHpytJN10DYgaV4w1r9L4E6fPUt60mYmD_k36EbhDfmv-EQOoRVvfB-nwcyk1LCPX2C0MT4eM1shmIvV30ogWgVPOeo-WcC83j7CbsxmWcmV-03MOAi19j2a771MUYD-rGnYEMz8bvXZqYPG_2M8i-NTTF6SujTzHbprPZFcl2FGgLGkBznmBvgSv-Qb-Faqq024ov1MmEZQ4cZMHhoqbr1IpdNouvYBUyzc8PU2bxR4zXKkhfzVG_H1Er-hK9TV5cos7QSn_D1fEFNAlgv0f1E8WphUYknGwj6hASM6AxVtH7nF3A9QlUiFIHKhDl4Zlp93mPHzLd14zatZjqdjp_k7Q7G6R74w2xu3c93osJ0PpS2-RexMdjC_DNtIqMNQh2eCEgip0J6PkXIUFWm4datR0m4ywJ2lUmahM0kpvlEhD-7qBNo7xG-_99Rx0_smOpQAN-DEBRUUgEX1fokJaUHZtb3x2_LIws70jrWCK72pOhdVKRK3fnsfOce7ZAaAxiRGvmwqc19ouGID5iG1zFI8KEipU4rXNaCsOk2tdwvwGvztto02O6wZPsOxpRuTP1Wz8Qc5PbR8O49iEuAmJcltyw3xdc78nzyfwHhjfBqXK0zMDTUuivcE6GjUy9LtZ5tRULS_CZ-L5BCsKlP=w2718-h1528-no
         entity: group.hallway_lights
         
@@ -207,7 +232,7 @@ views:
         - light.porch
         - light.gateway_light_7811dcb38a39
         - light.attic_landing_light
-        - binary_sensor.door_window_sensor_158d0001e7e302
+        - binary_sensor.front_door
       - type: thermostat
         entity: climate.hallway
       - type: conditional
@@ -218,7 +243,7 @@ views:
           type: media-control
           entity: media_player.living_room
     # View tab title.
-  - icon: mdi:hotel
+  - icon: mdi:bed
     title: Bedroom
     id: bedroom
     # The cards to show on this view.
@@ -245,22 +270,22 @@ views:
           type: media-control
           entity: media_player.bedroom
     # View tab title.
-  - icon: mdi:hotel
-    title: Spare room
-    id: spare_room
+  - icon: mdi:desk
+    title: Office
+    id: office
     # The cards to show on this view.
     cards:
       - type: picture-glance
-        title: "Spare room"
+        title: "Office"
         entities: 
-         - switch.spare_room_light
-        image: https://lh3.googleusercontent.com/hUBDYiFJFvNN3F8BgprMye8Y3L2JN2BfFL7sZxLYwevsU1j5BVYkFwinwrY0QZAgHYJLZiXDvtKG_xvSzXXvt7OLx-RE9wR2BDm-CrntkwAzpuC1OmH2FEd5MjojQY-rJBNpXpj0lMXdGTXuDbXLfhQsZjY4s4o4xmw3Q43sfwJp0n_L7rcRZviqB2mQwunBtHHDbIUmAUzu4TlPkw7j7ei-OykRlLeF_kC6wNz11RmOJMqdImyuPctLX0zTTV6EO-XSgC1Lnrw7lY4t-8gD7cJb9yA2Rd7JOC4mE6E55RcrM3UDnmrRdxhJtOCOoY6_Eh5fejv9b6DxSQEyzlcp0P7PoJjXzxz8PXu5RecMrTtKH1_y-zULA3cGrYRB5Zvlo2hQkEPPlpH0b_XMNaRK0ybO3c2jmWuTY_4WY1oU0J3K8C-UXHWmUI89UTQXwjCa5BvqbWWxX4wdHzydKsczFwijMcv4Ww0f727rmu-_RLvwetAjKgQFTcdVAVf8a-DWP0-_S1tMnU7-iJGLwwPpHbPhRH_WPUi1Wkt6XzwAt_oq8casE5oehYNTiXE4y12wmff3oIe8Qjogs3i2WtTAFA01qti0c14L5udIDbw_jVptNpXUFUd6V40prDpF9I4HEL93Hak_SJxXqfhudR28cQL1=w3002-h1689-no
-        entity: switch.spare_room_light
+         - switch.office_light
+        image: https://lh3.googleusercontent.com/pw/ACtC-3cPHm3qSzPlY36pm_rm4EWDPUXbRVC8xxi6eZNcshzVSI-KZtiehXR5DKqylFjcHSB3pBp_dN_IZKCNG4wHefKYq0-PLppXUJuJa06QD00EbdlEf4tkQT7as_5ij8X4qAJOWAk4qDbGk6NU5HFT2PvsaQ=w1511-h850-no
+        entity: switch.office_light
       - type: entities
-        title: "Spare room lights"
+        title: "Office lights"
         show_header_toggle: true
         entities:
-        - switch.spare_room_light
+        - switch.office_light
     # View tab title.
   - icon: mdi:pot-mix
     title: Kitchen
@@ -289,3 +314,98 @@ views:
         card:
           type: media-control
           entity: media_player.kitchen
+  - icon: mdi:car
+    title: Car
+    id: car
+    # The cards to show on this view.
+    cards:
+      - type: entities
+        entities:
+          - sensor.evoque_alarm
+          - device_tracker.evoque_device_tracker
+          - lock.evoque_doors
+          - sensor.evoque_info
+          - sensor.evoque_last_trip
+          - sensor.evoque_range
+          - sensor.evoque_service_info
+          - sensor.evoque_status
+          - sensor.evoque_tyres
+          - sensor.evoque_windows
+      - type: conditional
+        conditions:
+          - entity: lock.evoque_doors
+            state_not: "unlocked"
+        card: 
+          type: button
+          entity: lock.evoque_doors
+          hold_action:
+            action: more-info
+          icon: 'mdi:car-door'
+          name: Unlock Doors
+          show_icon: true
+          show_name: true
+          tap_action:
+            action: call-service
+            service: jlrincontrol.unlock_vehicle
+            service_data:
+              entity_id: sensor.evoque_info
+              pin: "0302"
+      - type: conditional
+        conditions:
+          - entity: lock.evoque_doors
+            state_not: "locked"
+        card: 
+          type: button
+          entity: lock.evoque_doors
+          hold_action:
+            action: more-info
+          icon: 'mdi:car-door'
+          name: Lock Doors
+          show_icon: true
+          show_name: true
+          tap_action:
+            action: call-service
+            service: jlrincontrol.lock_vehicle
+            service_data:
+              entity_id: sensor.evoque_info
+              pin: "0302"
+      - type: button
+        entity: sensor.evoque_info
+        hold_action:
+          action: more-info
+        name: Pre heat car
+        show_icon: true
+        icon: 'mdi:fan'
+        show_name: true
+        tap_action:
+          action: call-service
+          service: jlrincontrol.start_preconditioning
+          service_data:
+            entity_id: sensor.evoque_info
+            target_temp: 24
+      - type: button
+        entity: sensor.evoque_info
+        hold_action:
+          action: more-info
+        icon: 'mdi:fan'
+        name: Pre cool car
+        show_icon: true
+        show_name: true
+        tap_action:
+          action: call-service
+          service: jlrincontrol.start_preconditioning
+          service_data:
+            entity_id: sensor.evoque_info
+            target_temp: 15.5
+      - type: button
+        entity: sensor.evoque_info
+        hold_action:
+          action: more-info
+        name: Update My Car
+        show_icon: true
+        show_name: true
+        tap_action:
+          action: call-service
+          service: jlrincontrol.update_health_status
+          service_data:
+            entity_id: sensor.evoque_info

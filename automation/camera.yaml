@@ -25,7 +25,7 @@
     action:
       - service: notify.home_assistant
         data_template:
-          message: 'There is an issue with the garden camera - {{now().strftime("%H:%M on %w %b" )}}'
+          message: 'There is an issue with the garden camera - {{now().strftime("%H:%M on %a %d %b" )}}'
         data:
           data:
             tag: "garden-error-notification"

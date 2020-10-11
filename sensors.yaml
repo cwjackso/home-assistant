@@ -63,6 +63,10 @@
       blue_bin_date:
         friendly_name: 'Next blue bin collection'
         value_template: "{{states.sensor.bin_days.attributes['blue']}}"
+      evoque_precondition_time_remaining:
+        friendly_name: "Evoque preconditioning time remaining"
+        icon_template: "mdi:fan"
+        value_template: "{{ state_attr('sensor.evoque_all_info','status').climateStatusRemainingRuntime }}"
 #      daily_summary:
 #        friendly_name: "Daily Summary"
 #        value_template: >

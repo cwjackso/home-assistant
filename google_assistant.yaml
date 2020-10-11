@@ -4,6 +4,7 @@ exposed_domains:
   - light
   - switch
   - camera
+  - alarm_control_panel
 entity_config:
   light.mouse_lamp:
     expose: true

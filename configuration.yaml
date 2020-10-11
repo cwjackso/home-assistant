@@ -19,18 +19,19 @@ homeassistant:
       api_password: !secret http_password
 
 #whitelist the camera snapshot folder
-  whitelist_external_dirs:
+  allowlist_external_dirs:
     - /shared/files
+    
+mobile_app:
 
-ifttt:
-  key: !secret ifttt_key
-  
 system_health:
+
+recorder:
+  auto_purge: true
+  purge_keep_days: 14
 
 stream:
 
-# Show links to resources in log and frontend
-#introduction:
 weather:
   - platform: darksky
     api_key: !secret dark_sky
@@ -46,18 +47,18 @@ alarm_control_panel:
   - platform: manual
     name: House Alarm
     code: !secret alarm_pin
-    pending_time: 30
+    arming_time: 30
     delay_time: 20
     trigger_time: 4
     disarmed:
       trigger_time: 0
     armed_home:
-      pending_time: 0
+      arming_time: 0
       delay_time: 0
 
 # Enables the frontend
 frontend:
-  javascript_version: latest
+  #javascript_version: latest
   themes: !include_dir_merge_named themes
   
 #enable MQTT
@@ -67,12 +68,6 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
-#variables custom componemt
-
-#variable:
-#  garden_last_video:
-#    value: "initial"
-
 # Enables configuration UI
 config:
 
@@ -80,7 +75,7 @@ http:
   # Secrets are defined in the file secrets.yaml
   use_x_forwarded_for: true
   trusted_proxies: 127.0.0.1
-  base_url: !secret base_url
+  #base_url: !secret base_url
 
 # nmap device tracking
 device_tracker:
@@ -124,17 +119,6 @@ nest:
   client_secret: !secret nest_secret
 
 
-hue:
-  bridges:
-  - host: 192.168.86.59
-
-#xiaomi gateway
-xiaomi_aqara:
-  gateways:
-    - mac: !secret xiaomi_mac
-      key: !secret xiaomi_key
-      host: !secret xiaomi_host
-
 #tensorflow
 image_processing:
   - platform: tensorflow
@@ -145,23 +129,7 @@ image_processing:
       - entity_id: camera.garden
     model:
       # coco
-      graph: /config/tensorflow/faster_rcnn_inception_v2_coco.pb
-      #graph: /config/tensorflow/faster_rcnn_resnet101_coco.pb
-      categories:
-        - person
-        - bird
-        - cat
-        - dog
-        - horse
-        - sheep
-        - cow
-        - elephant
-        - bear
-        - zebra
-        - giraffe
-      # open image
-      #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
-      #graph: /config/tensorflow/faster_rcnn_inception_resnet_v2_atrous_lowproposals_oid.pb
+      graph: /config/tensorflow/models/efficientdet_d0_coco17_tpu-32
       
   - platform: tensorflow
     scan_interval: 10000
@@ -171,23 +139,7 @@ image_processing:
       - entity_id: camera.front_door
     model:
       # coco
-      graph: /config/tensorflow/faster_rcnn_inception_v2_coco.pb
-      #graph: /config/tensorflow/faster_rcnn_resnet101_coco.pb
-      categories:
-        - person
-        - bird
-        - cat
-        - dog
-        - horse
-        - sheep
-        - cow
-        - elephant
-        - bear
-        - zebra
-        - giraffe
-      # open image
-      #labels: /config/tensorflow/object_detection/data/oid_bbox_trainable_label_map.pbtxt
-      #graph: /config/tensorflow/faster_rcnn_inception_resnet_v2_atrous_lowproposals_oid.pb
+      graph: /config/tensorflow/models/efficientdet_d0_coco17_tpu-32
 
 camera:
   - platform: mjpeg
@@ -218,10 +170,6 @@ light:
     payload_off: "OFF"
     retain: true
 
-#IFTTT API
-ifttt:
-  key: !secret ifttt
-
 notify:
   - platform: html5
     name: home_assistant
@@ -229,6 +177,10 @@ notify:
     vapid_prv_key: !secret vapid_prv_key
     vapid_email: !secret vapid_email
 
+  - name: pushover
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_secret
 
 panel_iframe:
   configurator:
@@ -251,9 +203,6 @@ person:
     id: ollie
     device_trackers:
       - device_tracker.ollie_phone
-#tplink 
-tplink:
-
 
 media_player: !include media_players.yaml
 sensor: !include sensors.yaml
@@ -262,6 +211,5 @@ automation: !include_dir_merge_list automation/
 script: !include scripts/script_base.yaml
 scene: !include scenes.yaml
 shell_command: !include shell_commands.yaml
-input_select: !include inputs/input_select.yaml
 input_boolean: !include inputs/input_boolean.yaml
 google_assistant: !include google_assistant.yaml

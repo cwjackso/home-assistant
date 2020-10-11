@@ -3,7 +3,7 @@
     alias: 'Soundbar on when chromecast playing'
     trigger:
       - platform: state
-        entity_id: media_player.soundbar
+        entity_id: media_player.living_room
         to: 'playing'
       - platform: state
         entity_id: media_player.downstairs
@@ -17,11 +17,11 @@
         - condition: template
           value_template: '{{ states.media_player.ysp_1600_d5c2e7_main  != "on" }}'
         - condition: template
-          value_template: '{{ states.media_player.ysp_1600_d5c2e7_main.attributes.source != "analog"}}'
+          value_template: '{{ states.media_player.ysp_1600_d5c2e7_main.attributes.source != "bluetooth"}}'
     action:
       - service: media_player.turn_on
         entity_id: media_player.ysp_1600_d5c2e7_main
       - service: media_player.select_source
         data:
           entity_id: media_player.ysp_1600_d5c2e7_main
-          source: analog
+          source: bluetooth

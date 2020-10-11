@@ -1,10 +1,10 @@
-
-- alias: Cube event rotate
+- id: cube_rotate
+  alias: Cube event rotate
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.magic_cube
       action_type: rotate
   action:
     - service: media_player.volume_set
@@ -26,34 +26,37 @@
         #  {% endif %}
           
           
-- alias: Cube event tap_twice
+- id: cube_tap_twice
+  alias: Cube event tap twice
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.magic_cube
       action_type: tap_twice
   action:
     - service: media_player.media_play_pause
       entity_id: media_player.universal_media_player
       
-- alias: Cube event flip90
+- id: cube_flip_90
+  alias: Cube event flip90
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.magic_cube
       action_type: flip90
   action:
     - service: media_player.media_next_track
       entity_id: media_player.universal_media_player
 
-- alias: Cube event flip180
+- id: cube_flip_180
+  alias: Cube event flip180
   trigger:
     platform: event
     event_type: xiaomi_aqara.cube_action
     event_data:
-      entity_id: binary_sensor.cube_158d0001041f4c
+      entity_id: binary_sensor.magic_cube
       action_type: flip180
   action:
     - service: media_player.media_previous_track

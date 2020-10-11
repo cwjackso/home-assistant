@@ -6,44 +6,11 @@ people:
     - person.becs
     - person.ollie
 
-soundbar:
-  name: Living room soundbar
-  entities:
-    - media_player.soundbar
-    - media_player.ysp1600_d5c2e7_main
-
 living_room_tv:
   name: Living room TV
   entities:
     - media_player.living_room
     - media_player.sony_bravia_tv
-
-
-nest:
-  name: Nest
-  entities:
-    - binary_sensor.living_room_thermostat_online
-    - climate.living_room
-    - sensor.living_room_thermostat_humidity
-wifi:
-  name: Google WiFi
-  entities:
-    - sensor.google_wifi_status
-    - sensor.google_wifi_local_ip
-    - sensor.google_wifi_uptime
-    - sensor.google_wifi_last_restart
-    - sensor.google_wifi_new_version
-    - sensor.google_wifi_current_version
-
-local_data:
-  name: Local
-  entities:
-    - sensor.next_bus_direction
-    - sensor.next_bus_scheduled
-    - sensor.next_bus_route
-    - sensor.uber_to_town
-    - sensor.grey_bin_date
-    - sensor.blue_bin_date
 
 living_room_lights:
   name: Living room lights
@@ -72,82 +39,7 @@ kitchen_lights:
     - light.kitchen_island_2
     - light.mouse_lamp
 
-triggers:
-  name: Triggers
+office_lights:
+  name: Office lights
   entities:
-    - script.bedtime
-    - script.delay_heating
-
-scenes:
-  name: Scenes
-  entities:
-    - scene.watch_tv
-sky:
-  name: Sky tv
-  entities:
-    - input_select.channel
-    
-
-morning_notification_devices:
-  name: Google home devices
-  entities:
-    - media_player.living_room_home
-    - media_player.kitchen
-    
-google_home_devices:
-  name: Google home devices
-  entities:
-    - media_player.living_room_home
-    - media_player.kitchen 
-    - media_player.bedroom_home 
-    - media_player.spare_room
-    
-alarm:
-  name: House Alarm
-  entities:
-    - alarm_control_panel.house_alarm
-    
-door_sensors:
-  name: Doors
-  entities:
-    - binary_sensor.door_window_sensor_158d0001e7e302
-    
-motion_sensors:
-  name: Motion sensors
-  entities:
-    - binary_sensor.motion_sensor_158d0001644d03
-
-
-#rooms
-living_room:
-  name: Living Room
-  icon: mdi:sofa
-  entities:
-    - group.living_room_lights
-    - group.nest
-    - group.living_room_tv
-    - group.soundbar
-    - group.sky
-
-hallway:
-  name: Hallway
-  icon: mdi:stairs
-  entities:
-    - group.hallway_lights
-    - group.nest
-
-bedroom:
-  name: Bedroom
-  icon: mdi:hotel
-  entities:
-    - media_player.bedroom
-    - group.bedroom_lights
-    - group.nest
-    
-kitchen:
-  name: Kitchen
-  icon: mdi:pot
-  entities:
-    - media_player.kitchen
-    - group.kitchen_lights
-    - group.nest
+    - switch.office_light
