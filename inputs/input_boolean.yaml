@@ -1,0 +1,3 @@
+  daily_summary_run:
+    name: Has daily summary run
+    initial: on

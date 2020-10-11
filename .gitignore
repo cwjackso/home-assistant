@@ -1,7 +1,7 @@
 *
 !*.yaml
-!automation
-!scenes
+!*/
 !.gitignore
 secrets.yaml
 known_devices.yaml
+custom_components
