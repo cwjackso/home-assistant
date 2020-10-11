@@ -1,0 +1,16 @@
+    alias: Turn heating on in 1 hour
+    sequence:
+      - delay:
+          hours: 1
+          minutes: 0
+          seconds: 0
+      - alias: Nest heatmode
+        service: climate.set_operation_mode
+        data:
+          entity_id: climate.living_room
+          operation_mode: heat
+      - alias: Nest temp up
+        service: climate.set_temperature
+        data:
+          entity_id: climate.living_room
+          temperatute: 21

@@ -1,0 +1,13 @@
+bedtime : !include bedtime.yaml
+
+garden_camera_notify_gif: !include garden_camera_notify_gif.yaml
+
+front_door_camera_notify_gif: !include front_door_camera_notify_gif.yaml
+
+check_garden_tensor: !include check_garden_tensor.yaml
+
+check_front_door_tensor: !include check_front_door_tensor.yaml
+
+delay_heating: !include heating.yaml
+
+#morning_notification : !include morning_notification.yaml

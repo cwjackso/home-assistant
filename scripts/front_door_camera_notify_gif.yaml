@@ -1,0 +1,42 @@
+    alias: Front door camera notify gif
+    sequence:
+      - condition: numeric_state
+        entity_id: 'image_processing.tensorflow_front_door'
+        above: '0'
+      - service: notify.home_assistant
+        data_template:
+          message: "There is a {{ state_attr('image_processing.tensorflow_front_door','matches').keys()|list|unique|list|join(', ')|title }} near the front door - {{now().strftime('%H:%M on %a %d %b' )}}"
+        data:  
+          data:
+            url: !secret front_door_cam_gif
+            tag: "front_door-motion-notification"
+            image: !secret front_door_cam_notify
+      - service: camera.snapshot
+        data:
+          entity_id: camera.front_door
+          filename: "/shared/files/front_door_camera/front01.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.front_door
+          filename: "/shared/files/front_door_camera/front02.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.front_door
+          filename: "/shared/files/front_door_camera/front03.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.front_door
+          filename: "/shared/files/front_door_camera/front04.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.front_door
+          filename: "/shared/files/front_door_camera/front05.jpg"
+      - service: shell_command.generate_front_door_gif

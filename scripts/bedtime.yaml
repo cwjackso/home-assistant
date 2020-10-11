@@ -1,0 +1,68 @@
+    alias: Bedtime
+    sequence:
+      # Bedroom lights on
+      - alias: Bedroom lights on
+        service: light.turn_on
+        data:
+          entity_id: group.bedroom_lights
+          brightness: 100
+          kelvin: 2700
+      # lights on/off
+      - alias: Hallway lights on
+        service: light.turn_on
+        data:
+          entity_id: group.hallway_lights
+          brightness: 100
+          kelvin: 2700
+      - alias: Turn off ofice
+        service: switch.turn_off
+        data:
+          entity_id: switch.office_light
+      - alias: Turn off garden
+        service: switch.turn_off
+        data:
+          entity_id: switch.garden_lights
+      #tv off
+      - alias: Living Room tv off
+        service: homeassistant.turn_off
+        data:
+          entity_id: group.living_room_tv
+      #soundbar off
+      - alias: Living Room soundbar off
+        service: homeassistant.turn_off
+        data:
+          entity_id: group.living_room_soundbar
+      #nest temp down
+      - alias: Nest temp off
+        service: climate.set_temperature
+        data:
+          entity_id: climate.hallway
+          temperature: 9
+      # wait 3.5 minutes
+      - delay:
+          minutes: 3
+          seconds: 30
+      #living room lights off
+      - alias: Living room lights off
+        service: light.turn_off
+        data:
+          entity_id: group.living_room_lights
+      #hallway lights off
+      - alias: Hallway lights off
+        service: light.turn_off
+        data:
+          entity_id: group.hallway_lights
+      #kitchen lights off
+      - alias: Kitchen lights off
+        service: light.turn_off
+        data:
+          entity_id: group.kitchen_lights
+      # wait 15 minutes
+      - delay:
+          minutes: 15
+      #Arm the alarm
+      - alias: Arm the alarm
+        service: alarm_control_panel.alarm_arm_home
+        data:
+          entity_id: alarm_control_panel.house_alarm
+          code: !secret alarm_pin

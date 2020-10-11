@@ -1,0 +1,39 @@
+    alias: Check Garden Tensor
+    sequence:
+      # trigger the scan wait for it to finish  then run the gif script 
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_garden
+      - delay:
+          seconds: 2
+      - service: script.garden_camera_notify_gif
+      # if the scan gets nothing try again
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_garden'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_garden
+      - delay:
+          seconds: 2
+      - service: script.garden_camera_notify_gif
+      # Three times 
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_garden'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_garden
+      - delay:
+          seconds: 2
+      - service: script.garden_camera_notify_gif
+      # Four times 
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_garden'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_garden
+      - delay:
+          seconds: 2
+      - service: script.garden_camera_notify_gif

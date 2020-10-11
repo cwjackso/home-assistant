@@ -1,0 +1,39 @@
+    alias: Check Front Door Tensor
+    sequence:
+      # trigger the scan wait for it to finish  then run the gif script 
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_front_door
+      - delay:
+          seconds: 2
+      - service: script.front_door_camera_notify_gif
+      # if the scan gets nothing try again
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_front_door'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_front_door
+      - delay:
+          seconds: 2
+      - service: script.front_door_camera_notify_gif
+      # Three times 
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_front_door'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_front_door
+      - delay:
+          seconds: 2
+      - service: script.front_door_camera_notify_gif
+      # Four times 
+      - condition: numeric_state 
+        entity_id: 'image_processing.tensorflow_front_door'
+        below: '1'
+      - service: image_processing.scan
+        data:
+          entity_id: image_processing.tensorflow_front_door
+      - delay:
+          seconds: 2
+      - service: script.front_door_camera_notify_gif

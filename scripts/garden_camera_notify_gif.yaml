@@ -1,0 +1,42 @@
+    alias: Garden camera notify gif
+    sequence:
+      - condition: numeric_state
+        entity_id: 'image_processing.tensorflow_garden'
+        above: '0'
+      - service: notify.home_assistant
+        data_template:
+          message: "There is a {{ state_attr('image_processing.tensorflow_garden','matches').keys()|list|unique|list|join(', ')|title }} in the garden - {{now().strftime('%H:%M on %a %d %b' )}}"
+        data:  
+          data:
+            url: !secret garden_cam_gif
+            tag: "garden-motion-notification"
+            image: !secret garden_cam_notify
+      - service: camera.snapshot
+        data:
+          entity_id: camera.garden
+          filename: "/shared/files/garden_camera/garden01.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.garden
+          filename: "/shared/files/garden_camera/garden02.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.garden
+          filename: "/shared/files/garden_camera/garden03.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.garden
+          filename: "/shared/files/garden_camera/garden04.jpg"
+      - delay:
+          seconds: 1
+      - service: camera.snapshot
+        data:
+          entity_id: camera.garden
+          filename: "/shared/files/garden_camera/garden05.jpg"
+      - service: shell_command.generate_garden_gif

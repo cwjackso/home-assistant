@@ -1,0 +1,11 @@
+alias: morning notification
+sequence:
+  - service: media_player.volume_set
+    data:       
+      entity_id: group.morning_notification_devices
+      volume_level: 0.70
+  - service: tts.microsoft_say
+    entity_id: group.morning_notification_devices
+    data_template:
+      message: "{{ states('sensor.daily_summary') }}"
+      cache: false
