@@ -9,9 +9,6 @@
     condition:
       condition: and
       conditions:
-        - condition: state
-          entity_id: light.living_room_table_lamp
-          state: 'off'
         - condition: sun
           after: sunset
           after_offset: "-0:25:00"
@@ -27,7 +24,7 @@
         data:
           brightness_pct: 3
       - service: light.turn_on
-        entity_id: group.kitchen_lights
+        entity_id: light.kitchen_lights
         data:
           transition: 60
           brightness_pct: 60
@@ -47,13 +44,9 @@
     action:
       - service: light.turn_off
         entity_id: all
-      - service: switch.turn_off
-        entity_id: switch.garden_lights
-      - service: switch.turn_off
-        entity_id: switch.office_light
 
 #porch light off after 4 minutes (in case door is left open)
-  - id: porch_off_after_30_minutes
+  - id: porch_off_after_5_minutes
     alias: 'Turn porch light off after 4 minutes'
     trigger:
       platform: state
@@ -90,10 +83,11 @@
           brightness: 200
           kelvin: 2700 
       - service: light.turn_on
-        entity_id: group.kitchen_lights
+        entity_id: 
+          - light.kitchen_lights
+          - light.garden_lights
         data:
           #900 seconds = 15 minutes
           transition: 900
           brightness_pct: 60
-      - service: switch.turn_on
-        entity_id: switch.garden_lights
+

@@ -17,18 +17,23 @@ homeassistant:
     - type: homeassistant
     - type: legacy_api_password
       api_password: !secret http_password
-
+  external_url: "https://assistant.12dovedale.digital"
 #whitelist the camera snapshot folder
   allowlist_external_dirs:
     - /shared/files
+
+elasticsearch:
+  url: http://localhost:9200
     
 mobile_app:
+
+default_config:
 
 system_health:
 
 recorder:
   auto_purge: true
-  purge_keep_days: 14
+  purge_keep_days: 7
 
 stream:
 
@@ -40,8 +45,8 @@ duckdns:
   domain: !secret duck_dns_domain
   access_token: !secret duck_dns_token
   
-lovelace:
-  mode: yaml
+#lovelace:
+#  mode: yaml
 
 alarm_control_panel:
   - platform: manual
@@ -67,6 +72,13 @@ mqtt:
   port: !secret mqtt_port
   username: !secret mqtt_username
   password: !secret mqtt_password
+  discovery: true
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
 
 # Enables configuration UI
 config:
@@ -75,14 +87,6 @@ http:
   # Secrets are defined in the file secrets.yaml
   use_x_forwarded_for: true
   trusted_proxies: 127.0.0.1
-  #base_url: !secret base_url
-
-# nmap device tracking
-device_tracker:
-  - platform: nmap_tracker
-    hosts: 192.168.86.140-146
-    track_new_devices: yes
-    consider_home: 0:35
 
 # Discover some devices automatically
 discovery:
@@ -113,11 +117,15 @@ tts:
 ffmpeg:
   ffmpeg_bin: /usr/bin/ffmpeg
 
+camera: !include camera.yaml
+light: !include light.yaml
+switch: !include switch.yaml
 # nest
 nest:
-  client_id: !secret nest
-  client_secret: !secret nest_secret
-
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+  project_id : !secret nest_project_id
+  subscriber_id: !secret nest_subscriber_id
 
 #tensorflow
 image_processing:
@@ -129,7 +137,7 @@ image_processing:
       - entity_id: camera.garden
     model:
       # coco
-      graph: /config/tensorflow/models/efficientdet_d0_coco17_tpu-32
+      graph: /config/tensorflow/models/efficientdet_d2_coco17_tpu-32
       
   - platform: tensorflow
     scan_interval: 10000
@@ -139,36 +147,7 @@ image_processing:
       - entity_id: camera.front_door
     model:
       # coco
-      graph: /config/tensorflow/models/efficientdet_d0_coco17_tpu-32
-
-camera:
-  - platform: mjpeg
-    name: "Garden"
-    mjpeg_url: !secret garden_cam_stream
-    
-  - platform: mjpeg
-    name: "Front door"
-    mjpeg_url: !secret front_door_cam_stream
-
-  - platform: generic
-    name: "Garden stream"
-    still_image_url: !secret garden_cam_stream
-    stream_source: !secret garden_cam_rtsp
-
-  - platform: generic
-    name: "Front door stream"
-    still_image_url: !secret garden_cam_stream
-    stream_source: !secret front_door_cam_rtsp
-
-light:
-  - platform: mqtt
-    name: "Mouse lamp"
-    state_topic: "stat/sonoff/POWER"
-    command_topic: "cmnd/sonoff/POWER"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: true
+      graph: /config/tensorflow/models/efficientdet_d2_coco17_tpu-32
 
 notify:
   - platform: html5
@@ -182,32 +161,10 @@ notify:
     api_key: !secret pushover_api_key
     user_key: !secret pushover_user_secret
 
-panel_iframe:
-  configurator:
-    title: Configurator
-    icon: mdi:wrench
-    url: !secret home_assistant_url
-
-person:
-  - name: Carl
-    id: carl
-    user_id: 2d487ff07eae4d54b535e7d123724a0e
-    device_trackers:
-      - device_tracker.carl_phone
-  - name: Becs
-    id: becs
-    user_id: 5105e1c86d0f46479e51a82d843dc9f5
-    device_trackers:
-      - device_tracker.bec_phone
-  - name: Ollie
-    id: ollie
-    device_trackers:
-      - device_tracker.ollie_phone
-
 media_player: !include media_players.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include_dir_merge_list automation/
+automation: !include automations.yaml
 script: !include scripts/script_base.yaml
 scene: !include scenes.yaml
 shell_command: !include shell_commands.yaml

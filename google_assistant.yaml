@@ -2,26 +2,15 @@ project_id: !secret ga_project_id
 service_account: !include SERVICE_ACCOUNT.json
 exposed_domains:
   - light
-  - switch
   - camera
   - alarm_control_panel
+  - sensor 
+  - switch
 entity_config:
   light.mouse_lamp:
     expose: true
     aliases:
-        - mouse lamp
-  light.kitchen:
+    - mouse lamp
+  alarm_control_panel.xiaomi_gateway_alarm:
     expose: false
-  light.living_room:
-    expose: false
-  light.hallway:
-    expose: false
-  light.bedroom:
-    expose: false
-  light.group_for_wakeup:
-    expose: false
-  light.custom_group_for_lights:
-    expose: false
-  camera.garden:
-    expose: true
-    
+secure_devices_pin: "1502"

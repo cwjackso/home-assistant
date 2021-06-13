@@ -5,7 +5,7 @@
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.switch_158d0002011ffa
+      entity_id: binary_sensor.bedroom_switch
       click_type: single
   action:
     service: light.toggle
@@ -19,7 +19,7 @@
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.switch_158d0002011ffa
+      entity_id: binary_sensor.bedroom_switch
       click_type: double
   action:
     service: light.toggle
@@ -33,7 +33,7 @@
     platform: event
     event_type: xiaomi_aqara.click
     event_data:
-      entity_id: binary_sensor.switch_158d0002011ffa
+      entity_id: binary_sensor.bedroom_switch
       click_type: long_click_press
   action:
     service: light.toggle
@@ -45,14 +45,14 @@
   alias: kitchen motion
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001644d03
+    entity_id: binary_sensor.motion_sensor_kitchen
     from: 'off'
     to: 'on'
   condition: !include ../condition_includes/lights_home_and_dark.yaml
   action:
     - service: light.turn_on
       data:
-        entity_id: light.kitchen
+        entity_id: light.kitchen_lights
         brightness_pct: 75 
 
 #Dim kitch light kitchen with no motion for 5 mins
@@ -60,7 +60,7 @@
   alias: Kitchen no motion 10 mins
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001644d03
+    entity_id: binary_sensor.motion_sensor_kitchen
     from: 'on'
     to: 'off'
     for:
@@ -72,7 +72,7 @@
   action:
     - service: light.turn_on
       data:
-        entity_id: light.kitchen
+        entity_id: light.kitchen_lights
         brightness_pct: 25
         
 #Turn off kitchen light with no motion for 15 mins
@@ -80,7 +80,7 @@
   alias: Kitchen no motion 25 mins
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_158d0001644d03
+    entity_id: binary_sensor.motion_sensor_kitchen
     from: 'on'
     to: 'off'
     for:
@@ -92,7 +92,7 @@
   action:
     - service: light.turn_off
       data:
-        entity_id: light.kitchen
+        entity_id: light.kitchen_lights
     
 #front door opened
 - id: front_door_opened
@@ -118,13 +118,11 @@
     to: 'on'
   condition: !include ../condition_includes/lights_home_and_dark.yaml
   action:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.garden_lights
     - service: light.turn_on
       data:
-        entity_id: light.kitchen_lights
-        
+        entity_id: 
+          - light.garden_lights
+          - light.kitchen_lights
         
 #porch light off after door closed
 - id: porch_off_after_door_closed

@@ -1,0 +1,65 @@
+  - platform: switch
+    name: Christmas stair lights
+    entity_id: switch.christmas_stair_lights_switch
+  - platform: switch
+    name: Christmas dining lights
+    entity_id: switch.dining_room_christmas_lights_switch
+  - platform: switch
+    name: Christmas shelf lights
+    entity_id: switch.living_room_shelf_christmas_lights_switch
+  - platform: switch
+    name: Christmas tree lights
+    entity_id: switch.christmas_tree
+  - platform: switch
+    name: Outdoor fence lights
+    entity_id: switch.garden_lights
+  - platform: switch
+    name: Monkey lamp
+    entity_id: switch.monkey_light
+  - platform: group
+    name: Living room lights
+    entities:
+      - light.living_room_table_light
+      - light.living_room_ceiling_1_light
+      - light.living_room_ceiling_2_light
+        
+  - platform: group
+    name: Hallway lights
+    entities:
+     - light.hallway_1_light
+     - light.hallway_2_light
+     
+  - platform: group
+    name: Landing lights
+    entities:
+     - light.attic_landing_light
+     - light.landing_1_light
+     - light.landing_2_light
+    
+  - platform: group
+    name: Bedroom Lights
+    entities:
+      - light.bedside_right_light
+      - light.bedside_left_light
+    
+  - platform: group
+    name: Kitchen lights
+    entities:
+      - light.kitchen_island_1_light
+      - light.kitchen_island_2_light
+      - light.mouse_lamp
+      - light.monkey_lamp
+  - platform: group
+    name: Outdoor lights
+    entities:
+      - light.outdoor_patio_light
+      - light.outdoor_path_light
+#      - light.outdoor_passage_light - on the senosr.
+      - light.garden_lights
+  - platform: group
+    name: Christmas lights
+    entities:
+      - light.christmas_stair_light
+      - light.christmas_tree
+      - light.christmas_shelf_lights
+      - light.christmas_dining_light

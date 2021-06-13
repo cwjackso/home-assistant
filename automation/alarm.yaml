@@ -5,7 +5,7 @@
       entity_id: binary_sensor.front_door #Front door
       to: 'on'
     - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001644d03 #Kitchen motion
+      entity_id: binary_sensor.motion_sensor_kitchen
       to: 'on'
     - platform: state
       entity_id: binary_sensor.kitchen_door
@@ -28,7 +28,7 @@
       entity_id: binary_sensor.front_door
       to: 'on'
     - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0001644d03 #Kitchen motion
+      entity_id: binary_sensor.motion_sensor_kitchen
       to: 'on'
     - platform: state
       entity_id: binary_sensor.kitchen_door
@@ -91,7 +91,7 @@
     to: 'not_home'
     from: 'home'
     for:
-      minutes: 10
+      minutes: 5
   action:
     service: alarm_control_panel.alarm_arm_away
     data:

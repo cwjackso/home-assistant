@@ -1,37 +1,32 @@
     alias: Bedtime
     sequence:
-      # Bedroom lights on
-      - alias: Bedroom lights on
-        service: light.turn_on
-        data:
-          entity_id: group.bedroom_lights
-          brightness: 100
-          kelvin: 2700
       # lights on/off
       - alias: Hallway lights on
         service: light.turn_on
         data:
-          entity_id: group.hallway_lights
+          entity_id: 
+            - light.hallway_lights
+            - light.landing_lights
+            - light.bedroom_lights
           brightness: 100
           kelvin: 2700
-      - alias: Turn off ofice
-        service: switch.turn_off
+      - alias: Turn off office
+        service: light.turn_off
         data:
-          entity_id: switch.office_light
-      - alias: Turn off garden
-        service: switch.turn_off
-        data:
-          entity_id: switch.garden_lights
+          entity_id: 
+            - light.outdoor_lights
+            - light.office_light
+            - light.christmas_lights
       #tv off
-      - alias: Living Room tv off
-        service: homeassistant.turn_off
-        data:
-          entity_id: group.living_room_tv
+      #- alias: Living Room tv off
+      #  service: homeassistant.turn_off
+      #  data:
+      #    entity_id: group.living_room_tv
       #soundbar off
-      - alias: Living Room soundbar off
-        service: homeassistant.turn_off
-        data:
-          entity_id: group.living_room_soundbar
+      #- alias: Living Room soundbar off
+      #  service: homeassistant.turn_off
+      #  data:
+      #    entity_id: group.living_room_soundbar
       #nest temp down
       - alias: Nest temp off
         service: climate.set_temperature
@@ -42,21 +37,15 @@
       - delay:
           minutes: 3
           seconds: 30
-      #living room lights off
-      - alias: Living room lights off
-        service: light.turn_off
-        data:
-          entity_id: group.living_room_lights
-      #hallway lights off
-      - alias: Hallway lights off
-        service: light.turn_off
-        data:
-          entity_id: group.hallway_lights
-      #kitchen lights off
+      #lights off
       - alias: Kitchen lights off
         service: light.turn_off
         data:
-          entity_id: group.kitchen_lights
+          entity_id: 
+            - light.kitchen_lights
+            - light.hallway_lights
+            - light.landing_lights
+            - light.living_room_lights
       # wait 15 minutes
       - delay:
           minutes: 15

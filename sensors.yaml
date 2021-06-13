@@ -45,24 +45,24 @@
 #template sensors
   - platform: template
     sensors:
-      next_bus_route:
-        friendly_name: 'Next bus route'
-        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].route}}'
-      next_bus_direction:
-        friendly_name: 'Next bus direction'
-        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].direction}}'
-      next_bus_scheduled:
-        friendly_name: 'Next bus scheduled  / estimated'
-        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].scheduled}} / {{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].estimated}}'
-      black_bin_date:
-        friendly_name: 'Next black bin collection'
-        value_template: "{{states.sensor.bin_days.attributes['black']}}"
-      brown_bin_date:
-        friendly_name: 'Next brown collection'
-        value_template: "{{states.sensor.bin_days.attributes['brown']}}"        
-      blue_bin_date:
-        friendly_name: 'Next blue bin collection'
-        value_template: "{{states.sensor.bin_days.attributes['blue']}}"
+#      next_bus_route:
+#        friendly_name: 'Next bus route'
+#        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].route}}
+#      next_bus_direction:
+#        friendly_name: 'Next bus direction'
+#        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].direction}}'
+#      next_bus_scheduled:
+#        friendly_name: 'Next bus scheduled  / estimated'
+#        value_template: '{{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].scheduled}} / {{states.sensor.next_bus_to_sheffield.attributes.next_buses[0].estimated}}'
+#      black_bin_date:
+#        friendly_name: 'Next black bin collection'
+#        value_template: "{{states.sensor.bin_days.attributes['black']}}"
+#      brown_bin_date:
+#        friendly_name: 'Next brown collection'
+#        value_template: "{{states.sensor.bin_days.attributes['brown']}}"        
+#      blue_bin_date:
+#        friendly_name: 'Next blue bin collection'
+#        value_template: "{{states.sensor.bin_days.attributes['blue']}}"
       evoque_precondition_time_remaining:
         friendly_name: "Evoque preconditioning time remaining"
         icon_template: "mdi:fan"

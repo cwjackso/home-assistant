@@ -1,0 +1,19 @@
+  - platform: mjpeg
+    name: "Garden"
+    mjpeg_url: !secret garden_cam_stream
+    
+  - platform: mjpeg
+    name: "Front door"
+    mjpeg_url: !secret front_door_cam_stream
+
+  - platform: generic
+    name: "Garden stream"
+    still_image_url: !secret garden_cam_stream
+    stream_source: !secret garden_cam_rtsp
+    framerate: 6
+
+  - platform: generic
+    name: "Front door stream"
+    still_image_url: !secret garden_cam_stream
+    stream_source: !secret front_door_cam_rtsp
+    framerate: 6

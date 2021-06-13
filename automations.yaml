@@ -1,0 +1,752 @@
+- id: alarm_triggered_away
+  alias: Trigger alarm while armed away
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.front_door_contact
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_door_contact
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.shed_door_contact
+    to: 'on'
+  - type: motion
+    platform: device
+    device_id: b99991153250311d1794e63e59b77579
+    entity_id: binary_sensor.hallway_motion_occupancy
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 9bf60fe28b140f69a6c9c04ef268c567
+    entity_id: binary_sensor.landing_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_away
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house_alarm
+  mode: single
+- id: alarm_triggered_home
+  alias: Trigger alarm while armed home
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.front_door_contact
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_door_contact
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.shed_door_contact
+    to: 'on'
+  - type: motion
+    platform: device
+    device_id: b99991153250311d1794e63e59b77579
+    entity_id: binary_sensor.hallway_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_home
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house_alarm
+  mode: single
+- id: alarm_triggered_actions
+  alias: Alarm triggered actions
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.house_alarm
+    to: triggered
+  action:
+  - service: notify.home_assistant
+    data_template:
+      message: The house alarm has been triggered - {{now().strftime("%H:%M on %w
+        %b" )}}
+      data:
+        actions:
+        - action: notify_action_disarm_alarm
+          title: Disarm now
+        tag: house-alarm-notification
+  - service: notify.pushover
+    data:
+      message: The house alarm has been triggered - {{now().strftime("%H:%M on %w
+        %b" )}}
+      title: House alarm triggered!
+      data:
+        priority: 1
+- id: notify_action_disarm_alarm
+  alias: Notification action - Disarm alarm
+  trigger:
+    platform: event
+    event_type: html5_notification.clicked
+    event_data:
+      action: notify_action_disarm_alarm
+  action:
+    service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.house_alarm
+      code: 1502
+- id: alarm_on_depart
+  alias: Arm the alarm after leaving
+  trigger:
+    platform: state
+    entity_id: group.people
+    to: not_home
+    from: home
+    for:
+      minutes: 5
+  action:
+    service: alarm_control_panel.alarm_arm_away
+    data:
+      entity_id: alarm_control_panel.house_alarm
+      code: 1502
+- id: disarm_on_arrival
+  alias: Disarm the alarm on arrival
+  trigger:
+    platform: state
+    entity_id: group.people
+    to: home
+    from: not_home
+  action:
+    service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.house_alarm
+      code: 1502
+- id: xiaoma_click
+  alias: bedroom button click
+  trigger:
+  - platform: state
+    entity_id: sensor.bedroom_button_action
+    to: single
+  action:
+  - service: light.toggle
+    entity_id: light.bedroom_lights
+  mode: single
+- id: xiaoma_double_click
+  alias: bedroom button double click
+  trigger:
+  - platform: state
+    entity_id: sensor.bedroom_button_action
+    to: double
+  action:
+  - service: light.toggle
+    entity_id: light.bedside_left_light
+  mode: single
+- id: xiaoma_long_press
+  alias: Long press bedroom button
+  trigger:
+  - platform: state
+    entity_id: sensor.bedroom_button_action
+    to: hold
+  action:
+  - service: light.toggle
+    data:
+      entity_id: light.attic_landing_light
+  mode: single
+- id: kitechen_motion
+  alias: kitchen motion
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 8191e5019d4ed5d43f1a28b185c932c4
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - type: is_illuminance
+      condition: device
+      device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+      entity_id: sensor.outdoor_passage_motion_illuminance_lux
+      domain: sensor
+      below: 18
+    - condition: state
+      entity_id: group.people
+      state: home
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 80
+    entity_id: light.kitchen_lights
+  mode: single
+- id: kitchen_no_motion_10
+  alias: Kitchen no motion 10 mins
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 8191e5019d4ed5d43f1a28b185c932c4
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: light.kitchen_lights
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 10
+    entity_id: light.kitchen_lights
+  mode: single
+- id: kitchen_no_motion_25
+  alias: Kitchen no motion 25 mins
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 8191e5019d4ed5d43f1a28b185c932c4
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 25
+      seconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.kitchen_lights
+  mode: single
+- id: front_door_opened
+  alias: Front door opened
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 13c13291806210ba23c884b307abe939
+    entity_id: binary_sensor.front_door_contact
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - type: is_illuminance
+      condition: device
+      device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+      entity_id: sensor.outdoor_passage_motion_illuminance_lux
+      domain: sensor
+      below: 18
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 50
+    entity_id: light.porch_light
+  mode: single
+- id: kitchen_door_opened
+  alias: Kitchen door opened
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 0223d2c40d35e3ccdf02bac9855c1eb0
+    entity_id: binary_sensor.kitchen_door_contact
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - type: is_illuminance
+      condition: device
+      device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+      entity_id: sensor.outdoor_passage_motion_illuminance_lux
+      domain: sensor
+      below: 18
+    - condition: state
+      entity_id: group.people
+      state: home
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    entity_id: light.kitchen_lights
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    entity_id: light.outdoor_lights
+  mode: single
+- id: kitchen_door_closed
+  alias: Kitchen door closed
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 0223d2c40d35e3ccdf02bac9855c1eb0
+    entity_id: binary_sensor.kitchen_door_contact
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - type: is_illuminance
+      condition: device
+      device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+      entity_id: sensor.outdoor_passage_motion_illuminance_lux
+      domain: sensor
+      below: 18
+    - condition: state
+      entity_id: light.outdoor_lights
+      state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 50
+      transition: 10
+    entity_id: light.outdoor_lights
+  mode: single
+- id: porch_off_after_door_closed
+  alias: Turn porch light off after front door closed
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 13c13291806210ba23c884b307abe939
+    entity_id: binary_sensor.front_door_contact
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+  - service: light.turn_off
+    entity_id: light.porch_light
+  mode: single
+- id: doorbell_pushed
+  alias: Doorbell Pushed
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.doorbell
+    from: 'off'
+    to: 'on'
+  action:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.all_house
+      media_content_id: https://assistant.12dovedale.digital/local/chime.mp3
+      media_content_type: audio/mp3
+  - service: notify.home_assistant
+    data_template:
+      message: Front door bell rang - {{now().strftime("%H:%M on %a %d %b" )}}
+    data:
+      data:
+        tag: front-door-notification
+  mode: single
+- id: doorbell_pushed_lights_on
+  alias: Doorbell Pushed Light on
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.doorbell
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - type: is_illuminance
+      condition: device
+      device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+      entity_id: sensor.outdoor_passage_motion_illuminance_lux
+      domain: sensor
+      below: 18
+  action:
+  - service: light.turn_on
+    entity_id: light.porch_light
+    data:
+      brightness_pct: 10
+  mode: single
+- id: iftt_automation
+  alias: Ifttt Automation
+  trigger:
+  - event_data:
+      action: call_service
+    event_type: ifttt_webhook_received
+    platform: event
+  action:
+  - data_template:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+    service_template: '{{ trigger.event.data.service }}'
+- id: lights_on_arrival
+  alias: Lights on when we arrive home
+  trigger:
+  - platform: state
+    entity_id: group.people
+    to: home
+    from: not_home
+  condition:
+  - type: is_illuminance
+    condition: device
+    device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+    entity_id: sensor.outdoor_passage_motion_illuminance_lux
+    domain: sensor
+    below: 18
+  action:
+  - service: light.turn_on
+    data:
+      transition: 60
+      brightness_pct: 65
+    target:
+      entity_id:
+      - light.kitchen_lights
+      - light.living_room_table_light
+  - service: light.turn_on
+    data:
+      brightness_pct: 65
+    target:
+      entity_id:
+      - light.outdoor_lights
+      - light.hallway_lights
+      - light.porch_light
+  mode: single
+- id: lights_on_depart
+  alias: Lights off when everyone leaves
+  trigger:
+    platform: state
+    entity_id: group.people
+    to: not_home
+    from: home
+    for:
+      minutes: 10
+  action:
+  - service: light.turn_off
+    entity_id: all
+- id: porch_off_after_5_minutes
+  alias: Turn porch light off after 4 minutes
+  trigger:
+  - platform: state
+    entity_id: light.porch
+    to: 'on'
+    for: 0:04:00
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: home
+  action:
+  - service: light.turn_off
+    entity_id: light.porch
+  mode: single
+- id: lights_when_dark_automation
+  alias: lights on when dark
+  trigger:
+  - type: illuminance
+    platform: device
+    device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+    entity_id: sensor.outdoor_passage_motion_illuminance_lux
+    domain: sensor
+    below: 20
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    above: 0
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: home
+  - condition: time
+    before: '22:30'
+    after: '14:00'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 65
+      transition: 300
+    target:
+      entity_id:
+      - light.outdoor_lights
+      - light.kitchen_lights
+      - light.living_room_table_light
+  mode: single
+- id: cube_rotate
+  alias: Cube event rotate
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.magic_cube
+      action_type: rotate
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.universal_media_player
+      volume_level: "{% set state = states.media_player.universal_media_player.attributes.volume_level\
+        \ + (trigger.event.data.action_value|float)/90 -%} {%-  if state > 1 -%}\n\
+        \   {%- set state  = 1 -%}\n{%-  elif state < 0 -%}\n   {%- set state  = 0\
+        \ -%}\n{%- endif %} {{ state }}\n"
+- id: cube_tap_twice
+  alias: Cube event tap twice
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.magic_cube
+      action_type: tap_twice
+  action:
+  - service: media_player.media_play_pause
+    entity_id: media_player.universal_media_player
+- id: cube_flip_90
+  alias: Cube event flip90
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.magic_cube
+      action_type: flip90
+  action:
+  - service: media_player.media_next_track
+    entity_id: media_player.universal_media_player
+- id: cube_flip_180
+  alias: Cube event flip180
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.magic_cube
+      action_type: flip180
+  action:
+  - service: media_player.media_previous_track
+    entity_id: media_player.universal_media_player
+- id: nest_heating_off_work
+  alias: Nest heating on when someone is off work
+  trigger:
+    platform: time_pattern
+    hours: 9
+    minutes: 10
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: group.people
+      state: home
+  action:
+    service: climate.set_temperature
+    data:
+      entity_id: climate.hallway
+      temperature: 20
+- id: outdoor_passage_light_on
+  alias: Outside passage light when motion detected and dark
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+    entity_id: binary_sensor.outdoor_passage_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - type: is_illuminance
+    condition: device
+    device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+    entity_id: sensor.outdoor_passage_motion_illuminance_lux
+    domain: sensor
+    below: 18
+  action:
+  - type: turn_on
+    device_id: f9c145d9279642e2b048ffb89806e22c
+    entity_id: light.outdoor_passage_light
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1607465357611'
+  alias: Outside passage light off after motion
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 76b0cfdfd18d2f89feeb2866b79463f1
+    entity_id: binary_sensor.outdoor_passage_motion_occupancy
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_off
+    device_id: f9c145d9279642e2b048ffb89806e22c
+    entity_id: light.outdoor_passage_light
+    domain: light
+  mode: single
+- id: '1607514551799'
+  alias: Hallway lights on with motion
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: b99991153250311d1794e63e59b77579
+    entity_id: binary_sensor.hallway_motion_occupancy
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 65
+    target:
+      entity_id: light.hallway_lights
+  mode: single
+- id: '1607514652062'
+  alias: Hallway lights dim with no motion
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: b99991153250311d1794e63e59b77579
+    entity_id: binary_sensor.hallway_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: light.hallway_lights
+    state: 'on'
+  action:
+  - service: light.turn_on
+    entity_id: light.hallway_lights
+    data:
+      brightness_pct: 5
+      transition: 5
+  mode: single
+- id: '1607514831372'
+  alias: Hallway lights off with no motion for 5
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: b99991153250311d1794e63e59b77579
+    entity_id: binary_sensor.hallway_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.hallway_lights
+  mode: single
+- id: '1607534046030'
+  alias: Landing lights on with motion
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 9bf60fe28b140f69a6c9c04ef268c567
+    entity_id: binary_sensor.landing_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 07:00
+    before: '23:59'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 65
+    target:
+      entity_id: light.landing_lights
+  mode: single
+- id: '1607534137543'
+  alias: Landing lights dim with no motion
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 9bf60fe28b140f69a6c9c04ef268c567
+    entity_id: binary_sensor.landing_motion_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: light.landing_lights
+    state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 5
+      transition: 5
+    entity_id: light.landing_lights
+  mode: single
+- id: '1607534179536'
+  alias: Landing lights off with no motion for 5
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 9bf60fe28b140f69a6c9c04ef268c567
+    entity_id: binary_sensor.landing_motion_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.landing_lights
+  mode: single
+- id: '1607638211375'
+  alias: Christmas tree
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:00
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: home
+  action:
+  - service: light.turn_on
+    data: {}
+    entity_id: light.christmas_lights
+  mode: single
+- id: '1611860684087'
+  alias: Notify cameras
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: frigate/events
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_3_xl
+    data:
+      message: A {{trigger.payload_json["after"]["label"]}} was detected on the {{trigger.payload_json["after"]["camera"]}}
+        camera
+      data:
+        image: https://assistant.12dovedale.digital/api/frigate/notifications/{{trigger.payload_json["after"]["id"]}}/thumbnail.jpg?format=android
+        tag: '{{trigger.payload_json["after"]["id"]}}'
+        actions:
+        - action: URI
+          title: View video
+          uri: https://files.12dovedale.digital/files/frigate/clips/{{trigger.payload_json["after"]["camera"]}}-{{trigger.payload_json["after"]["id"]}}.mp4
+        - action: URI
+          title: View live stream
+          uri: /lovelace-camera/{{trigger.payload_json["after"]["camera"]}}
+  - service: notify.mobile_app_pixel_4
+    data:
+      message: A {{trigger.payload_json["after"]["label"]}} was detected.
+      data:
+        image: https://assistant.12dovedale.digital/api/frigate/notifications/{{trigger.payload_json["after"]["id"]}}/thumbnail.jpg?format=android
+        tag: '{{trigger.payload_json["after"]["id"]}}'
+        actions:
+        - action: URI
+          title: View video
+          uri: https://files.12dovedale.digital/files/frigate/clips/{{trigger.payload_json["after"]["camera"]}}-{{trigger.payload_json["after"]["id"]}}.mp4
+        - action: URI
+          title: View live stream
+          uri: /lovelace-camera/{{trigger.payload_json["after"]["camera"]}}
+  mode: queued
+  max: 10
